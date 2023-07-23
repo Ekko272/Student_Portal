@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign In</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f2f2f2;
+            font-family: Marker Felt;
+        }
+
+        form {
+            text-align: center;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            font-family: Marker Felt;
+        }
+
+        input {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            background-color: #4caf50;
+            color: #ffffff;
+            cursor: pointer;
+        }
+
+        h3 {
+            color: #ff0000;
+            font-size: 16px;
+        }
+
+    </style>
+
+</head>
+<body>
+    <form th:action="signIn">
+        Username<label>
+        <input name="username">
+    </label>
+        <br>
+        password<label>
+        <input name="password">
+    </label>
+        <br>
+        <input type="submit" value="Sign In">
+    </form>
+    <br>
+    <h3 th:text="${alert}"></h3>
+
+</body>
+</html>

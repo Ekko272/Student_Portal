@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Main Page</title>
+    <style>
+        body {
+            font-family: Marker Felt;
+            text-align: center;
+            background-color: #f0f0f0;
+        }
+
+        h1 {
+            margin-top: 30px;
+        }
+
+        p {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        button {
+            font-size: 16px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            background-color: #007bff; /* Blue color, you can change this to any color you want */
+            cursor: pointer;
+            margin: 5px;
+            transition: background-color 0.2s;
+            width: 150px; /* Set a fixed width for the buttons */
+            height: 50px; /* Set a fixed height for the buttons */
+            font-family: Marker Felt;
+        }
+
+        button:hover {
+            background-color: #0056b3; /* Darker shade on hover */
+        }
+
+    </style>
+</head>
+<body>
+<h1>Welcome to the Main Page!</h1>
+<p th:text="'Hello, ' + ${username}"></p>
+
+<div class="button-container">
+    <h2>Management Center</h2>
+    <a th:href="@{/addClassPage}">
+        <button>Add Course</button>
+    </a>
+    <a th:href="@{/deleteClassPage}">
+        <button>Delete Course</button>
+    </a>
+    <a th:href="@{/searchClassPage}">
+        <button>Search Classes</button>
+    </a>
+    <a th:href="@{/manageStudents}">
+        <button>Manage Students</button>
+    </a>
+</div>
+
+</body>
+</html>

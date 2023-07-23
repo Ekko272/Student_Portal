@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Deleting Class</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f0f0f0;
+    }
+
+    h1 {
+      margin-top: 30px;
+    }
+
+    p {
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+
+    div {
+      margin-top: 50px;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    button {
+      font-size: 16px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      color: #fff;
+      background-color: #007bff;
+      cursor: pointer;
+      margin: 5px;
+      transition: background-color 0.2s;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    /* Additional styles for the input fields and submit button inside the 'form1' div */
+    #form1 {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 300px;
+      margin: 0 auto;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    input[type="submit"] {
+      background-color: #007bff;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+
+  </style>
+  <script src="https://cdn.staticfile.org/angular.js/1.4.6/angular.min.js"></script>
+  <script src="https://cdn.bootcss.com/angular.js/1.7.0/angular-route.min.js"></script>
+</head>
+<body>
+<div id="form1"ng-app="deleteClassApp" ng-controller="deleteClassCont">
+  <input ng-model="c_id" placeholder="Class ID"/>
+  <button ng-click="deleteClass()">Delete Class</button>
+</div>
+<br>
+
+
+
+<script>
+  var app = angular.module('deleteClassApp',[]);
+  app.controller('deleteClassCont',function($http,$scope,$window,$location){
+    $scope.c_id='';
+
+    //js object json
+    $scope.newClass ={c_id:''};
+
+    //ng-click响应函数给newClass properties赋值
+    $scope.deleteClass = function () {
+      $http.post('/api/deleteClass', $scope.c_id) // Sending the c_id directly
+              .then(function (response) {
+                alert(response.data);
+              }).catch(function (error) {
+        alert(error.data);
+      });
+    }
+
+  })
+</script>
+</body>
+</html>
