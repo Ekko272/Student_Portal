@@ -1,12 +1,20 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.Course;
 import com.example.demo.model.User;
+import com.example.demo.service.AdminService;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,6 +28,8 @@ public class MainCont extends HttpServlet {
 
     @Autowired
     JdbcTemplate jdbcTemplate;
+    @Autowired
+    AdminService adminService;
     @RequestMapping(value="/signIn", method = RequestMethod.GET)
     public ModelAndView signIn(HttpServletRequest request, String username, String password)
     {
@@ -60,17 +70,26 @@ public class MainCont extends HttpServlet {
         return mv;
     }
 
-    @RequestMapping(value="/mainPage", method = RequestMethod.GET)
-    public ModelAndView mainPage(HttpServletRequest request){
-        ModelAndView mv = new ModelAndView("mainPage.html");
-
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("currentUser");
-        if (user == null) {
-            mv.setViewName("redirect:/signIn");
-            return mv;
-        }
+    @RequestMapping(value="/registerAccountPage")
+    public ModelAndView registerAccount(HttpServletRequest request){
+        ModelAndView mv = new ModelAndView("registerAccount");
 
         return mv;
+    }
+
+    @PostMapping("/api/register")
+    public ResponseEntity<String> register(@RequestBody User user)
+    {
+        User user1 = adminService.searchUser(user.getUserName());
+        if(user1!=null)
+        {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.TEXT_PLAIN);
+            return new ResponseEntity<>("success",headers, HttpStatus.OK);//传给restful response
+        }else {
+            HttpHeaders hearderrs = new HttpHeaders();
+            hearderrs.setContentType(MediaType.TEXT_PLAIN);
+            return new ResponseEntity<>("fail",hearderrs,HttpStatus.OK);
+        }
     }
 }

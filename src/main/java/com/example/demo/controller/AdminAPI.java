@@ -56,15 +56,11 @@ public class AdminAPI extends HttpServlet {
 
         if(course!=null)
         {
-            ObjectMapper objectMapper = new ObjectMapper();
-
-            String courseJson = objectMapper.writeValueAsString(course);
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.TEXT_PLAIN);
             return ResponseEntity.ok(course);
         }
         return null;
-
     }
 
 
