@@ -34,6 +34,11 @@ public class AdminServiceImpl implements AdminService{
     }
 
     @Override
+    public int addUser(User u) {
+        return adminDao.addUser(u);
+    }
+
+    @Override
     public User checkLogin(String usn, String psw) {
         return adminDao.checkLoginIn(usn,psw);
     }

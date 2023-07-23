@@ -72,10 +72,17 @@ public class MainCont extends HttpServlet {
             headers.setContentType(MediaType.TEXT_PLAIN);
             return new ResponseEntity<>("Username already exist",headers, HttpStatus.OK);//传给restful response
         }else {
-
-            HttpHeaders hearderrs = new HttpHeaders();
-            hearderrs.setContentType(MediaType.TEXT_PLAIN);
-            return new ResponseEntity<>("Register Success!",hearderrs,HttpStatus.OK);
+            int i = adminService.addUser(user);
+            if(i>0) {
+                HttpHeaders hearderrs = new HttpHeaders();
+                hearderrs.setContentType(MediaType.TEXT_PLAIN);
+                return new ResponseEntity<>("Register Success!", hearderrs, HttpStatus.OK);
+            }
+            else{
+                HttpHeaders hearderrrs = new HttpHeaders();
+                hearderrrs.setContentType(MediaType.TEXT_PLAIN);
+                return new ResponseEntity<>("Register Fail!", hearderrrs, HttpStatus.OK);
+            }
         }
     }
 }

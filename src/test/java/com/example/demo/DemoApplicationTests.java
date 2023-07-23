@@ -20,6 +20,7 @@ class DemoApplicationTests {
     AdminService adminService;
     @Autowired
     AdminDao adminDao;
+
     @Test
     void contextLoads() {
     }
@@ -39,6 +40,13 @@ class DemoApplicationTests {
     @Test
     void searcgUser(){
         int i = adminDao.searchUser("aa");
+        System.out.println(i);
+    }
+
+    @Test
+    void addUser() {
+        User u = new User("f","f");
+        int i = adminDao.addUser(u);
         System.out.println(i);
     }
 }

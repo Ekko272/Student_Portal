@@ -59,8 +59,8 @@ public class AdminDaoImpl implements AdminDao{
 
     @Override
     public int addUser(User user) {
-
-        return 0;
+        String sql = "insert into users(username, password) values(?,?);";
+        return jdbcTemplate.update(sql,user.getUserName(),user.getPassword());
     }
 
     @Override
