@@ -12,4 +12,4 @@ public String testRest(@PathVariable("id") String id, @PathVariable("username") 
 }
 ```
 
-**testing git**
+**testing git 2 terminal git command test**
