@@ -7,9 +7,9 @@ public interface AdminDao {
     int addCourse(Course c);
     Course serachCourse(Integer id);
     int deleteCourse(Integer id);
-
-    User searchUser(String username);
-
+    int searchUser(String username);
     int addUser(User user);
+    User checkLoginIn(String username, String password);
+    User searchUserAndReturn(String username);
 
 }

@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.Objects;
 
 
 @Repository
@@ -43,11 +44,37 @@ public class AdminDaoImpl implements AdminDao{
     }
 
     @Override
-    public User searchUser(String username) {
+    public int searchUser(String username) {
         String sql="select * from users where username=?;";
-        User user = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(User.class), username);
-        if(user!=null){
-            return user;
+        try {
+            if (jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(User.class), username) != null) {
+                return 1;
+            }
+        }catch (Exception e){
+            return 2;
+        }
+        return 3;
+
+    }
+
+    @Override
+    public int addUser(User user) {
+
+        return 0;
+    }
+
+    @Override
+    public User checkLoginIn(String username, String password) {
+        String sql="select * from users where username=?;";
+        int i = searchUser(username);
+        if (i==1){
+            User user = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(User.class), username);
+            if(Objects.equals(user.getPassword(), password)){
+                return user;
+            }
+            else{
+                return null;
+            }
         }
         else{
             return null;
@@ -56,8 +83,16 @@ public class AdminDaoImpl implements AdminDao{
     }
 
     @Override
-    public int addUser(User user) {
-        return 0;
+    public User searchUserAndReturn(String username) {
+        String sql="select * from users where username=?;";
+        int i = searchUser(username);
+        if (i==1) {
+            User user = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(User.class), username);
+            return user;
+        }else{
+                return null;
+            }
+
     }
 
 

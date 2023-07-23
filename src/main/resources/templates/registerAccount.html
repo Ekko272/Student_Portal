@@ -80,36 +80,42 @@
     <script src="https://cdn.staticfile.org/angular.js/1.4.6/angular.min.js"></script>
     <script src="https://cdn.bootcss.com/angular.js/1.7.0/angular-route.min.js"></script>
 </head>
-<body>
-<div id="form1"ng-app="registerApp" ng-controller="registerCont">
-    <input ng-model="username" placeholder="User name"/>
+<body id="form1"ng-app="registerApp" ng-controller="registerCont">
+<div>
+    <input ng-model="userName" placeholder="Username"/>
     <input ng-model="password" placeholder="Password"/>
     <input type="submit" ng-click="register()">
 </div>
 <br>
+<div>
+    <h1>{{ greet }}</h1>
+</div>
+
 
 
 
 <script>
     var app = angular.module('registerApp',[]);
     app.controller('registerCont',function($http,$scope,$window,$location){
-        $scope.username='';
+        $scope.greet='';
+        $scope.userName='';
         $scope.password='';
+        $scope.id='';
         //js object json
-        $scope.newClass ={username:'',password:''};
+        $scope.newClass ={userName:'',password:'',id:''};
 
         //ng-click响应函数给newClass properties赋值
         $scope.register = function () {
-            $scope.newClass.username=$scope.username;
+            $scope.newClass.userName=$scope.userName;
             $scope.newClass.password=$scope.password;
+
             $http.post('/api/register', $scope.newClass)
                 .then(function (response) {
-                    alert(response.data);
+                    $scope.greet = response.data;
                 }).catch(function (error) {
                 alert(error.data);
             });
         }
-
     })
 </script>
 </body>

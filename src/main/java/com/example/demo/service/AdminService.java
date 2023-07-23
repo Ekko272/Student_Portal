@@ -8,5 +8,7 @@ public interface AdminService {
     int deleteCourse(Integer id);
     Course serachCourse(Integer id);
 
-    User searchUser(String username);
+    User checkLogin(String usn, String psw);
+    int searchUser(String username);
+    User searchUserAndReturn(String username);
 }

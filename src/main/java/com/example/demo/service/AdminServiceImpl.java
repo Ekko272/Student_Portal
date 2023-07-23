@@ -34,7 +34,18 @@ public class AdminServiceImpl implements AdminService{
     }
 
     @Override
-    public User searchUser(String username) {
+    public User checkLogin(String usn, String psw) {
+        return adminDao.checkLoginIn(usn,psw);
+    }
+
+    @Override
+    public int searchUser(String username) {
         return adminDao.searchUser(username);
+
+    }
+
+    @Override
+    public User searchUserAndReturn(String username) {
+        return adminDao.searchUserAndReturn(username);
     }
 }

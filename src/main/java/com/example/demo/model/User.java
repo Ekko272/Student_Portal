@@ -1,36 +1,43 @@
 package com.example.demo.model;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
+import java.io.Serial;
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class User implements Serializable {
+    private int id;
     private String userName;
     private String password;
-    private int userId;
-
-    private ArrayList<Order> orders;
-    private int counter = 0;
+    @Serial
+    private static final long serialVersionUID = 2L; // Update the serialVersionUID to a new value
 
 
-    public int getUser_id() {
-        return userId;
-    }
-
-    public void setUser_id(int user_id) {
-        this.userId = user_id;
-    }
-
-    public User(){};
-
-    public User(String userName, String password, int u) {
+    public User(){}
+    public User(int id, String userName, String password) {
+        this.id = id;
         this.userName = userName;
         this.password = password;
-        this.userId = u;
+    }
+    public User(String userName, String password) {
+        this.userName = userName;
+        this.password = password;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getUserName() {
         return userName;
@@ -46,9 +53,5 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-    public void setOrders(Order od){
-        this.orders.set(counter, od);
-        this.counter++;
     }
 }
