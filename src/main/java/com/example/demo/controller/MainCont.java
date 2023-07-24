@@ -20,9 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 
 @Controller()
 public class MainCont extends HttpServlet {
@@ -41,7 +38,6 @@ public class MainCont extends HttpServlet {
             session.setAttribute("currentUser", user);
             mv.addObject("username", username);
             return mv;
-
         }
         else {
             mv.setViewName("signIn.html");
@@ -52,13 +48,11 @@ public class MainCont extends HttpServlet {
             e.printStackTrace();
             return null;
         }
-
     }
 
     @RequestMapping(value="/registerAccountPage")
     public ModelAndView registerAccount(HttpServletRequest request){
         ModelAndView mv = new ModelAndView("registerAccount");
-
         return mv;
     }
 
