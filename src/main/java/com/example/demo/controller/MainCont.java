@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-
 @Controller()
 public class MainCont extends HttpServlet {
     @Autowired
@@ -41,7 +40,9 @@ public class MainCont extends HttpServlet {
         }
         else {
             mv.setViewName("signIn.html");
-            mv.addObject("alert", "Username doesn't exist or Incorrect password");
+            if(username!=null) {
+                mv.addObject("alert", "Username doesn't exist or Incorrect password");
+            }
             return mv;
         }
         }catch(Throwable e) {
