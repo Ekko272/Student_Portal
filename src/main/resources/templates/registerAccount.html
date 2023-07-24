@@ -99,11 +99,10 @@
         $scope.userName='';
         $scope.password='';
         $scope.id='';
-        //js object json
+
         $scope.newClass ={userName:'',password:'',id:''};
         $scope.registrationSuccess = false;
 
-        //ng-click响应函数给newClass properties赋值
         $scope.register = function () {
             $scope.newClass.userName=$scope.userName;
             $scope.newClass.password=$scope.password;
