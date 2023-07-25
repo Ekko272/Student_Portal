@@ -21,6 +21,7 @@
 
     div {
       margin-top: 50px;
+      text-align: left;
     }
 
     a {
@@ -90,14 +91,14 @@
 <div >
   <div >
     <h1>{{ greet }}</h1>
-    <p>{{ searchResult.name }}</p>
-    <p>{{ searchResult.location }}</p>
-    <p>{{ searchResult.instructor }}</p>
-    <p>{{ searchResult.description }}</p>
-    <p>{{ searchResult.price }}</p>
-    <p>{{ searchResult.startDate }}</p>
-    <p>{{ searchResult.endDate }}</p>
-    <p>{{ searchResult.mode }}</p>
+    <p>{{ cn }} {{ searchResult.name }}</p>
+    <p>{{ loc }} {{ searchResult.location }}</p>
+    <p>{{ inst }} {{ searchResult.instructor }}</p>
+    <p>{{ desc }} {{ searchResult.description }}</p>
+    <p>{{ prc }} {{ searchResult.price }}</p>
+    <p>{{ sd }} {{ searchResult.startDate }}</p>
+    <p>{{ ed }} {{ searchResult.endDate }}</p>
+    <p>{{ ctype }} {{ searchResult.mode }}</p>
   </div>
 </div>
 
@@ -113,9 +114,25 @@
                 $scope.searchResult = response.data;
                 if($scope.searchResult === ''){//cannot use "null" here. If ResponseEntity returns a null object, response.data = '';
                   $scope.greet = 'Course Not Found';
+                  $scope.cn = '';
+                  $scope.loc = '';
+                  $scope.inst = '';
+                  $scope.desc = '';
+                  $scope.prc = '';
+                  $scope.sd = '';
+                  $scope.ed = '';
+                  $scope.ctype = '';
                 }
                 else {
                   $scope.greet = 'Course Information';
+                  $scope.cn = 'Course Name: ';
+                  $scope.loc = 'Location: ';
+                  $scope.inst = 'Instructor: ';
+                  $scope.desc = 'Description: ';
+                  $scope.prc = 'Price: ';
+                  $scope.sd = 'Start Date: ';
+                  $scope.ed = 'End Date: ';
+                  $scope.ctype = 'Class Type: ';
                 }
               })
               .catch(function (error) {

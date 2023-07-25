@@ -40,10 +40,48 @@
         }
         button:hover {
             background: skyblue;
-            box-shadow: 0 0 5px skyblue, 0 0 25px
-            skyblue, 0 0 50px skyblue, 0 0 200px skyblue;
+            box-shadow: 0 0 5px skyblue, 0 0 25px skyblue, 0 0 50px skyblue, 0 0 200px skyblue;
             transition: background-color 0.7s;
         }
+        .user-account-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 30px;
+            height: 30px;
+            border: none;
+            border-radius: 50%;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 18px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .user-account-menu {
+            position: absolute;
+            top: 50px;
+            left: 10px;
+            width: 150px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .user-account-menu a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: #333;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .user-account-menu a:last-child {
+            border-bottom: none;
+        }
+
     </style>
 </head>
 <body>
@@ -70,6 +108,29 @@
         <button>Manage Students</button>
     </a>
 </div>
+<button class="user-account-button" onclick="toggleUserMenu()">&#9776;</button>
 
+<!-- User account menu options -->
+<div class="user-account-menu" id="userMenu">
+    <a href="#">
+        Change Username
+    </a>
+    <a href="#">
+        Change Password
+    </a>
+    <a th:href="@{/logout}">
+        Sign Out
+    </a>
+</div>
 </body>
+<script>
+    function toggleUserMenu() {
+        var menu = document.getElementById("userMenu");
+        if (menu.style.display === "block") {
+            menu.style.display = "none";
+        } else {
+            menu.style.display = "block";
+        }
+    }
+</script>
 </html>
