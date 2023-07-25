@@ -82,37 +82,37 @@
 </head>
 <body>
 <div id="form1"ng-app="addClassApp" ng-controller="addClassCont">
-    <input ng-model="id" placeholder="Class ID"/>
+    <input ng-model="id" placeholder="Class ID" required/>
     <br>
-    <input ng-model="maxStudent" placeholder="Max Student"/>
+    <input ng-model="maxStudent" placeholder="Max Student" required/>
     <br>
-    <input ng-model="enrollment" placeholder="Enrollment"/>
+    <input ng-model="enrollment" placeholder="Enrollment" required/>
     <br>
-    <input ng-model="location" placeholder="Location"/>
+    <input ng-model="location" placeholder="Location" required/>
     <br>
-    <input ng-model="startDate" placeholder="Start Date"/>
+    <input ng-model="startDate" placeholder="Start Date" required/>
     <br>
-    <input ng-model="showEnable" placeholder="Show Enable"/>
+    <input ng-model="showEnable" placeholder="Show Enable" required/>
     <br>
-    <input ng-model="description" placeholder="Description"/>
+    <input ng-model="description" placeholder="Description" required/>
     <br>
-    <input ng-model="endDate" placeholder="End Date"/>
+    <input ng-model="endDate" placeholder="End Date" required/>
     <br>
-    <input ng-model="timeInterval" placeholder="Time Interval"/>
+    <input ng-model="timeInterval" placeholder="Time Interval" required/>
     <br>
-    <input ng-model="name" placeholder="Course Name"/>
+    <input ng-model="name" placeholder="Course Name" required/>
     <br>
-    <input ng-model="price" placeholder="Price"/>
+    <input ng-model="price" placeholder="Price" required/>
     <br>
-    <input ng-model="mode" placeholder="Mode"/>
+    <input ng-model="mode" placeholder="Mode" required/>
     <br>
-    <input ng-model="weekDays" placeholder="Week Days"/>
+    <input ng-model="weekDays" placeholder="Week Days" required/>
     <br>
-    <input ng-model="instructor" placeholder="Instructor"/>
+    <input ng-model="instructor" placeholder="Instructor" required/>
     <br>
-    <input ng-model="numOfWeeks" placeholder="Week Amount"/>
+    <input ng-model="numOfWeeks" placeholder="Week Amount" required/>
     <br>
-    <input type="submit" ng-click="addNewClass()">
+    <input type="submit" ng-click="addNewClass()" value="Add Course">
 </div>
 <script>
     //angular前端框架,‘addCalssApp’匹配上方div,将其变成app
