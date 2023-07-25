@@ -49,4 +49,14 @@ class DemoApplicationTests {
         int i = adminDao.addUser(u);
         System.out.println(i);
     }
+
+    @Test
+    void teee(){
+        Course course = adminDao.serachCourse(525);
+    }
+
+    @Test
+    void teeeeee(){
+
+    }
 }

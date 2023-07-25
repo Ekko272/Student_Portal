@@ -20,7 +20,8 @@ public class AdminServiceImpl implements AdminService{
 
     @Override
     public int deleteCourse(Integer id) {
-        if(adminDao.serachCourse(id) != null){
+        Course course = adminDao.serachCourse(id);
+        if(course != null){
             return adminDao.deleteCourse(id);
         }
         else {

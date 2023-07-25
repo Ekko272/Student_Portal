@@ -22,7 +22,7 @@ public class AdminAPI extends HttpServlet {
     public ResponseEntity<String> addClass(@RequestBody Course c)//declare请求主体。Course c就是$http.post('/api/addClass',$scope.newClass)的$scope.newClass。
     {
         int result = adminService.addCourses(c);
-        if(result ==1)
+        if(result == 1)
         {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.TEXT_PLAIN);
@@ -49,16 +49,17 @@ public class AdminAPI extends HttpServlet {
     }
 
     @PostMapping("/api/searchClass")
-    public ResponseEntity<Course> searchClass(@RequestBody Integer cid) throws JsonProcessingException {
-        Course course = adminService.serachCourse(cid);
-
+    public ResponseEntity<Course> searchClass(@RequestBody Integer id) throws JsonProcessingException {
+        Course course = adminService.serachCourse(id);
         if(course!=null)
         {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.TEXT_PLAIN);
             return ResponseEntity.ok(course);
         }
-        return null;
+        else{
+            return ResponseEntity.ok(null);
+        }
     }
 
 

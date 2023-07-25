@@ -82,7 +82,7 @@
 </head>
 <body>
 <div id="form1"ng-app="addClassApp" ng-controller="addClassCont">
-    <input ng-model="c_id" placeholder="Class ID"/>
+    <input ng-model="id" placeholder="Class ID"/>
     <br>
     <input ng-model="maxStudent" placeholder="Max Student"/>
     <br>
@@ -90,15 +90,15 @@
     <br>
     <input ng-model="location" placeholder="Location"/>
     <br>
-    <input ng-model="sTime" placeholder="Start time"/>
+    <input ng-model="startDate" placeholder="Start Date"/>
     <br>
     <input ng-model="showEnable" placeholder="Show Enable"/>
     <br>
     <input ng-model="description" placeholder="Description"/>
     <br>
-    <input ng-model="eTime" placeholder="End time"/>
+    <input ng-model="endDate" placeholder="End Date"/>
     <br>
-    <input ng-model="time" placeholder="Time"/>
+    <input ng-model="timeInterval" placeholder="Time Interval"/>
     <br>
     <input ng-model="name" placeholder="Course Name"/>
     <br>
@@ -106,13 +106,11 @@
     <br>
     <input ng-model="mode" placeholder="Mode"/>
     <br>
-    <input ng-model="c_time" placeholder="Time"/>
-    <br>
-    <input ng-model="c_day" placeholder="Day"/>
+    <input ng-model="weekDays" placeholder="Week Days"/>
     <br>
     <input ng-model="instructor" placeholder="Instructor"/>
     <br>
-    <input ng-model="nc" placeholder="Week Amount"/>
+    <input ng-model="numOfWeeks" placeholder="Week Amount"/>
     <br>
     <input type="submit" ng-click="addNewClass()">
 </div>
@@ -121,45 +119,44 @@
     var app = angular.module('addClassApp',[]);
     app.controller('addClassCont',function($http,$scope,$window,$location){
         //js ng-model variable，同时赋值
-        $scope.c_id='';
+        $scope.id='';
         $scope.maxStudent='';
         $scope.enrollment='';
         $scope.location='';
-        $scope.sTime='';
+        $scope.startDate='';
         $scope.showEnable='';
         $scope.description='';
-        $scope.eTime='';
-        $scope.time='';
+        $scope.endDate='';
+        $scope.timeInterval='';
         $scope.name='';
         $scope.price='';
         $scope.mode='';
-        $scope.c_time='';
-        $scope.c_day='';
+        $scope.weekDays='';
         $scope.instructor='';
-        $scope.nc='';
+        $scope.numOfWeeks='';
 
         //js object json
-        $scope.newClass ={c_id:'', maxStudent:'',enrollment:'',location:'',sTime:'',showEnable:'',description:'',eTime:'',time:'',name:'',
-            price:'',mode:'',c_time:'',c_day:'',instructor:'',nc:''};
+        $scope.newClass ={id:'', maxStudent:'',enrollment:'',location:'',startDate:'',showEnable:'',description:'',endDate:'',timeInterval:'',name:'',
+            price:'',mode:'',weekDays:'',instructor:'',numOfWeeks:''};
 
         //ng-click响应函数给newClass properties赋值
         $scope.addNewClass=function (){
-            $scope.newClass.c_id = $scope.c_id;
+            $scope.newClass.id = $scope.id;
             $scope.newClass.maxStudent = $scope.maxStudent;
             $scope.newClass.enrollment = $scope.enrollment;
             $scope.newClass.location = $scope.location;
-            $scope.newClass.sTime = $scope.sTime;
+            $scope.newClass.startDate = $scope.startDate;
             $scope.newClass.showEnable = $scope.showEnable;
             $scope.newClass.description = $scope.description;
-            $scope.newClass.eTime = $scope.eTime;
-            $scope.newClass.time = $scope.time;
+            $scope.newClass.endDate = $scope.endDate;
+            $scope.newClass.timeInterval = $scope.timeInterval;
             $scope.newClass.name = $scope.name;
             $scope.newClass.price = $scope.price;
             $scope.newClass.mode = $scope.mode;
-            $scope.newClass.c_time = $scope.c_time;
-            $scope.newClass.c_day = $scope.c_day;
+            $scope.newClass.weekDays = $scope.weekDays;
             $scope.newClass.instructor = $scope.instructor;
-            $scope.newClass.nc = $scope.nc;
+            $scope.newClass.numOfWeeks = $scope.numOfWeeks;
+
 
             //restful api， post，响应地址为/api/addClass，响应参数为$scope.newClass
             $http.post('/api/addClass',$scope.newClass)

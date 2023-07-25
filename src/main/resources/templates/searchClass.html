@@ -83,34 +83,40 @@
 
 <body ng-app="searchClassApp" ng-controller="searchClassCont">
 <div id="form1">
-  <input ng-model="c_id" placeholder="Class ID" />
+  <input ng-model="id" placeholder="Class ID" />
   <button ng-click="searchClass()">Search Class</button>
 </div>
 <br>
 <div >
-  <div>
+  <div >
     <h1>{{ greet }}</h1>
     <p>{{ searchResult.name }}</p>
     <p>{{ searchResult.location }}</p>
-    <p>{{ searchResult.c_day }}</p>
     <p>{{ searchResult.instructor }}</p>
     <p>{{ searchResult.description }}</p>
+    <p>{{ searchResult.price }}</p>
+    <p>{{ searchResult.startDate }}</p>
+    <p>{{ searchResult.endDate }}</p>
+    <p>{{ searchResult.mode }}</p>
   </div>
 </div>
 
 <script>
   var app = angular.module('searchClassApp', []);
   app.controller('searchClassCont', function ($http, $scope) {
-    $scope.c_id = '';
-
+    $scope.id = '';
     $scope.searchResult = null;
     $scope.greet = '';
     $scope.searchClass = function () {
-      $http.post('/api/searchClass', $scope.c_id)
+      $http.post('/api/searchClass', $scope.id)
               .then(function (response) {
                 $scope.searchResult = response.data;
-                $scope.greet = 'Course Information';
-
+                if($scope.searchResult === ''){//cannot use "null" here. If ResponseEntity returns a null object, response.data = '';
+                  $scope.greet = 'Course Not Found';
+                }
+                else {
+                  $scope.greet = 'Course Information';
+                }
               })
               .catch(function (error) {
                 console.error(error.data);

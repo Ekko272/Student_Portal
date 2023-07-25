@@ -17,22 +17,21 @@ public class AdminDaoImpl implements AdminDao{
     JdbcTemplate jdbcTemplate;
     @Override
     public int addCourse(Course c) {
-        String sql ="INSERT INTO course (id, maxStudent, enrollment, location, sTime, showEnable, description, eTime, time, name, price, mode, c_time, c_day, instructor, nc)\n" +
-                "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);\n";
+        String sql ="INSERT INTO course (id, maxStudent, enrollment, location, start_date, showEnable, description, end_date, name, price, mode, instructor, week_days, time_interval, num_of_weeks)\n" +
+                "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);\n";
 
-        return jdbcTemplate.update(sql, c.getC_id(), c.getMaxStudent(), c.getEnrollment(), c.getLocation(), c.getsTime(), c.getShowEnable(),
-                c.getDescription(), c.geteTime(), c.geteTime(), c.getName(), c.getPrice(),
-                c.getMode(), c.getC_time(), c.getC_day(), c.getInstructor(), c.getNc());
+        return jdbcTemplate.update(sql, c.getId(), c.getMaxStudent(), c.getEnrollment(), c.getLocation(), c.getStartDate(), c.getShowEnable(),
+                c.getDescription(), c.getEndDate(), c.getName(), c.getPrice(),
+                c.getMode(), c.getInstructor(), c.getWeekDays(), c.getTimeInterval(), c.getNumOfWeeks());
     }
 
     @Override
     public Course serachCourse(Integer id) {
         String sql = "select * from course where id=?;";
         try {
-            return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Course.class), id);
-        } catch (EmptyResultDataAccessException e){
-            String msg = "There is no course "+id;
-            System.out.println(msg);
+            Course course = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Course.class), id);
+            return course;
+        } catch (Exception e){
             return null;
         }
     }
