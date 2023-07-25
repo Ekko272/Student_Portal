@@ -48,26 +48,29 @@
 </head>
 <body>
 <div>
-    <h1>&#128526;Welcome to the Main Page!</h1>
+    <h1>&#128526;Welcome to the Student Portal!</h1>
     <hr>
 </div>
 
-<p th:text="'Hello, administrator ' + ${username}"></p>
+<p th:text="'Hello, student ' + ${username}"></p>
 
 
 <div class="button-container">
-    <h2>Management Center</h2>
-    <a th:href="@{/addClassPage}">
-        <button>Add Course To Database</button>
+    <a>
+        <button>Add Course</button>
     </a>
-    <a th:href="@{/deleteClassPage}">
-        <button>Delete Course From Database</button>
+    <a>
+        <button>Delete Course</button>
     </a>
-    <a th:href="@{/searchClassPage}">
-        <button>Search Class</button>
+    <a>
+        <button>Search Course</button>
     </a>
-    <a th:href="@{/manageStudents}">
-        <button>Manage Students</button>
+    <a>
+        <button>View My Courses</button>
+    </a>
+    <a>
+        <button>Contact Teacher</button>
+<!--        post question on a thread-->
     </a>
 </div>
 

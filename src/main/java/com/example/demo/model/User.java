@@ -1,15 +1,11 @@
 package com.example.demo.model;
 
-import java.io.Serial;
 import java.io.Serializable;
 
 public class User implements Serializable {
     private int id;
     private String userName;
     private String password;
-    @Serial
-    private static final long serialVersionUID = 2L; // Update the serialVersionUID to a new value
-
 
     public User(){}
     public User(int id, String userName, String password) {

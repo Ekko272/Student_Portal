@@ -31,12 +31,22 @@ public class MainCont extends HttpServlet {
         ModelAndView mv = new ModelAndView();
         User user = adminService.checkLogin(username, password);
         if (user!=null){
-            mv.setViewName("redirect:/mainPage");
-            HttpSession session = request.getSession();
-            mv.setViewName("mainPage.html");
-            session.setAttribute("currentUser", user);
-            mv.addObject("username", username);
-            return mv;
+            if(user.getId()==1) {
+                mv.setViewName("redirect:/mainPage");
+                HttpSession session = request.getSession();
+                mv.setViewName("mainPage.html");
+                session.setAttribute("cruser", user);
+                mv.addObject("username", username);
+                return mv;
+            }
+            else{
+                mv.setViewName("redirect:/studentMainPage");
+                HttpSession session = request.getSession();
+                mv.setViewName("studentMainPage.html");
+                session.setAttribute("cruser", user);
+                mv.addObject("username", username);
+                return mv;
+            }
         }
         else {
             mv.setViewName("signIn.html");

@@ -106,6 +106,7 @@
         $scope.register = function () {
             $scope.newClass.userName=$scope.userName;
             $scope.newClass.password=$scope.password;
+            $scope.newClass.id=2;
 
             $http.post('/api/register', $scope.newClass)
                 .then(function (response) {
