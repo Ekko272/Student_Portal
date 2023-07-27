@@ -24,27 +24,97 @@
         a {
             text-decoration: none;
         }
-        button {
-            font-size: 16px;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 10px;
-            color: #fff;
-            background-color: #007bff; /* Blue color, you can change this to any color you want */
-            cursor: pointer;
-            margin: 10px;
-            transition: background-color 0.2s;
-            width: 150px; /* Set a fixed width for the buttons */
-            height: 100px; /* Set a fixed height for the buttons */
-            font-family: Monaco;
+
+        .button-80 {
+           width: 200px;
+           height: 100px;
+           background: #fff;
+           backface-visibility: hidden;
+           border-radius: .375rem;
+           border-style: solid;
+           border-width: .125rem;
+           box-sizing: border-box;
+           color: #212121;
+           cursor: pointer;
+           display: inline-block;
+           font-family: Circular,Helvetica,sans-serif;
+           font-size: 1.125rem;
+           font-weight: 700;
+           letter-spacing: -.01em;
+           line-height: 1.3;
+           padding: .875rem 1.125rem;
+           position: relative;
+           text-align: left;
+           text-decoration: none;
+           transform: translateZ(0) scale(1);
+           transition: transform .2s;
+           user-select: none;
+           -webkit-user-select: none;
+           touch-action: manipulation;
+       }
+        .button-80:not(:disabled):hover {
+            transform: scale(1.05);
         }
-        button:hover {
-            background: skyblue;
-            box-shadow: 0 0 5px skyblue, 0 0 25px
-            skyblue, 0 0 50px skyblue, 0 0 200px skyblue;
-            transition: background-color 0.7s;
+        .button-80:not(:disabled):hover:active {
+            transform: scale(1.05) translateY(.125rem);
+        }
+        .button-80:focus {
+            outline: 0 solid transparent;
+        }
+        .button-80:focus:before {
+            content: "";
+            left: calc(-1*.375rem);
+            pointer-events: none;
+            position: absolute;
+            top: calc(-1*.375rem);
+            transition: border-radius;
+            user-select: none;
+        }
+        .button-80:focus:not(:focus-visible) {
+            outline: 0 solid transparent;
+        }
+        .button-80:focus:not(:focus-visible):before {
+            border-width: 0;
+        }
+        .button-80:not(:disabled):active {
+            transform: translateY(.125rem);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            padding-top: 100px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 30%;
+        }
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
         }
     </style>
+    <script src="https://cdn.staticfile.org/angular.js/1.4.6/angular.min.js"></script>
+    <script src="https://cdn.bootcss.com/angular.js/1.7.0/angular-route.min.js"></script>
 </head>
 <body>
 <div>
@@ -54,28 +124,86 @@
 
 <p th:text="'Hello, student ' + ${username}"></p>
 
+<div ng-app="addCourseStuApp" ng-controller="addCourseStuCont">
+    <div class="button-container" >
+        <a id="addCourseBtn">
+            <button class="button-80">Add Course</button>
+        </a>
+        <a>
+            <button class="button-80">Delete Course</button>
+        </a>
+        <a>
+            <button class="button-80">Search Course</button>
+        </a>
+        <a>
+            <button class="button-80">Browse All Courses</button>
+        </a>
+        <a>
+            <button class="button-80">View My Courses</button>
+        </a>
+        <a>
+            <button class="button-80">Contact Teacher</button>
+        </a>
+    </div>
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Enter your Course ID:</p>
+            <input ng-model="id">
+            <button ng-click="addCourseStu()">Submit</button>
+            <div>
+                <p>{{searchResult}}</p>
+            </div>
+        </div>
 
-<div class="button-container">
-    <a>
-        <button>Add Course</button>
-    </a>
-    <a>
-        <button>Delete Course</button>
-    </a>
-    <a>
-        <button>Search Course</button>
-    </a>
-    <a>
-        <button>Browse All Courses</button>
-    </a>
-    <a>
-        <button>View My Courses</button>
-    </a>
-    <a>
-        <button>Contact Teacher</button>
-<!--        post question on a thread-->
-    </a>
+    </div>
 </div>
+<script>
+    var app = angular.module('addCourseStuApp', []);
+    app.controller('addCourseStuCont', function ($http, $scope) {
+        $scope.id = '';
+        $scope.searchResult = null;
+        $scope.addCourseStu = function () {
+            $http.post('/api/addCourseStu', $scope.id)
+                .then(function (response) {
+                    $scope.searchResult = response.data;
+
+                })
+                .catch(function (error) {
+                    console.error(error.data);
+                });
+        };
+    });
+
+
+
+
+
+
+
+
+
+
+    var modal = document.getElementById("myModal");
+    var btn = document.getElementById("addCourseBtn");
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+    // When the user clicks the button, open the modal
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
 
 </body>
 </html>

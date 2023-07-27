@@ -3,16 +3,19 @@ package com.example.demo.dao;
 import com.example.demo.model.Course;
 import com.example.demo.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.relational.core.sql.In;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 
 @Repository
-public class AdminDaoImpl implements AdminDao{
+public class BaseRepositoryImpl implements BaseRepository {
     @Autowired
     JdbcTemplate jdbcTemplate;
     @Override
@@ -91,6 +94,38 @@ public class AdminDaoImpl implements AdminDao{
         }else{
                 return null;
             }
+
+    }
+
+    @Override
+    public int studentAddCourse(int studentId,Course c) {
+        String sql = "INSERT INTO `helloWeb`.`users_course` (`users_id`, `course_id`) VALUES (?, ?);";
+        try {
+            jdbcTemplate.update(sql, studentId, c.getId());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    @Override
+    public int studentDeletCourse(Course c) {
+        return 0;
+    }
+
+    @Override
+    public List<Integer> checkCoursesStudentHas(int id) {
+        String sql = "SELECT course.id\n" +
+                "FROM course\n" +
+                "JOIN users_course ON course.id = users_course.course_id\n" +
+                "WHERE users_course.users_id=?;";
+        List<Map<String, Object>> maps = jdbcTemplate.queryForList(sql, id);
+        List<Integer> coursesHave = new ArrayList<>();
+        for(int i=0; i < maps.size();i++){
+            Integer o = (Integer)maps.get(i).get("id");
+            coursesHave.add(o);
+        }
+        return coursesHave;
 
     }
 

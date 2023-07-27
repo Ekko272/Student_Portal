@@ -3,7 +3,9 @@ package com.example.demo.dao;
 import com.example.demo.model.Course;
 import com.example.demo.model.User;
 
-public interface AdminDao {
+import java.util.List;
+
+public interface BaseRepository {
     int addCourse(Course c);
     Course serachCourse(Integer id);
     int deleteCourse(Integer id);
@@ -11,5 +13,9 @@ public interface AdminDao {
     int addUser(User user);
     User checkLoginIn(String username, String password);
     User searchUserAndReturn(String username);
+    int studentAddCourse(int studentId,Course c);
+    int studentDeletCourse(Course c);
+    List<Integer> checkCoursesStudentHas(int id);
+
 
 }

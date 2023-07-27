@@ -1,9 +1,11 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Course;
+import com.example.demo.model.User;
 import com.example.demo.service.AdminService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -49,8 +51,10 @@ public class AdminAPI extends HttpServlet {
     }
 
     @PostMapping("/api/searchClass")
-    public ResponseEntity<Course> searchClass(@RequestBody Integer id) throws JsonProcessingException {
+    public ResponseEntity<Course> searchClass(@RequestBody Integer id, HttpSession session) throws JsonProcessingException {
         Course course = adminService.serachCourse(id);
+        //User cruser = (User)session.getAttribute("cruser");
+        //Proved ResponseEntity method is able to pass a session
         if(course!=null)
         {
             HttpHeaders headers = new HttpHeaders();

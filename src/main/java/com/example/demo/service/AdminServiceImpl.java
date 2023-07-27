@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.dao.AdminDao;
+import com.example.demo.dao.BaseRepository;
 import com.example.demo.model.Course;
 import com.example.demo.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,17 +12,17 @@ import org.springframework.transaction.annotation.Transactional;
 public class AdminServiceImpl implements AdminService{
 
     @Autowired
-    AdminDao adminDao;
+    BaseRepository baseRepository;
     @Override
     public int addCourses(Course c) {
-        return adminDao.addCourse(c);
+        return baseRepository.addCourse(c);
     }
 
     @Override
     public int deleteCourse(Integer id) {
-        Course course = adminDao.serachCourse(id);
+        Course course = baseRepository.serachCourse(id);
         if(course != null){
-            return adminDao.deleteCourse(id);
+            return baseRepository.deleteCourse(id);
         }
         else {
             return 0;
@@ -31,27 +31,27 @@ public class AdminServiceImpl implements AdminService{
 
     @Override
     public Course serachCourse(Integer id) {
-        return adminDao.serachCourse(id);
+        return baseRepository.serachCourse(id);
     }
 
     @Override
     public int addUser(User u) {
-        return adminDao.addUser(u);
+        return baseRepository.addUser(u);
     }
 
     @Override
     public User checkLogin(String usn, String psw) {
-        return adminDao.checkLoginIn(usn,psw);
+        return baseRepository.checkLoginIn(usn,psw);
     }
 
     @Override
     public int searchUser(String username) {
-        return adminDao.searchUser(username);
+        return baseRepository.searchUser(username);
 
     }
 
     @Override
     public User searchUserAndReturn(String username) {
-        return adminDao.searchUserAndReturn(username);
+        return baseRepository.searchUserAndReturn(username);
     }
 }
