@@ -85,5 +85,10 @@ class DemoApplicationTests {
         }
     }
 
+    @Test
+    void asdsad(){
+        List<Integer> integers = baseRepository.checkCoursesStudentHas(55);
+    }
+
 
 }

@@ -24,23 +24,25 @@ public class StudentAPI {
     public ResponseEntity<String> addClass(@RequestBody Integer courseId, HttpSession session){
         User user = (User)session.getAttribute("cruser");
         Course course = adminService.serachCourse(courseId);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.TEXT_PLAIN);
         if(course==null){
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.TEXT_PLAIN);
+
             return new ResponseEntity<>("Course Not Found",headers, HttpStatus.OK);
+        }
+        if(studentService.checkStudentHasCourse(user.getId(), courseId)){
+            return new ResponseEntity<>("Already Has this course",headers, HttpStatus.OK);
         }
         else {
             if(studentService.addCourse(user.getId(), adminService.serachCourse(courseId)) == 1)
             {
                 String courseInfo = "Course " + course.getName() + "with instructor " + course.getInstructor()
                         + "has been added successfully";
-                HttpHeaders headers = new HttpHeaders();
                 headers.setContentType(MediaType.TEXT_PLAIN);
                 return new ResponseEntity<>(courseInfo,headers, HttpStatus.OK);
             }else {
-                HttpHeaders hearderrs = new HttpHeaders();
-                hearderrs.setContentType(MediaType.TEXT_PLAIN);
-                return new ResponseEntity<>("fail",hearderrs,HttpStatus.OK);
+
+                return new ResponseEntity<>("fail",headers,HttpStatus.OK);
             }
         }
     }
