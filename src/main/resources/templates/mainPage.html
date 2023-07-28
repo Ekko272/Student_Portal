@@ -2,125 +2,44 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Main Page</title>
-    <style>
-        body {
-            font-family: Monaco;
-            text-align: center;
-            background-color: #f0f0f0;
-        }
-        h1 {
-            margin-top: 30px;
-        }
-        p {
-            font-size: 18px;
-            margin-bottom: 30px;
-        }
-        .button-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 50px;
-        }
-        a {
-            text-decoration: none;
-        }
-        button {
-            font-size: 16px;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 10px;
-            color: #fff;
-            background-color: #007bff; /* Blue color, you can change this to any color you want */
-            cursor: pointer;
-            margin: 10px;
-            transition: background-color 0.2s;
-            width: 150px; /* Set a fixed width for the buttons */
-            height: 100px; /* Set a fixed height for the buttons */
-            font-family: Monaco;
-        }
-        button:hover {
-            background: skyblue;
-            box-shadow: 0 0 5px skyblue, 0 0 25px skyblue, 0 0 50px skyblue, 0 0 200px skyblue;
-            transition: background-color 0.7s;
-        }
-        .user-account-button {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            width: 30px;
-            height: 30px;
-            border: none;
-            border-radius: 50%;
-            background-color: #007bff;
-            color: #fff;
-            font-size: 18px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-        }
-
-        .user-account-menu {
-            position: absolute;
-            top: 50px;
-            left: 10px;
-            width: 150px;
-            background-color: #f0f0f0;
-            border-radius: 5px;
-            display: none;
-        }
-
-        .user-account-menu a {
-            display: block;
-            padding: 10px;
-            text-decoration: none;
-            color: #333;
-            border-bottom: 1px solid #ccc;
-        }
-
-        .user-account-menu a:last-child {
-            border-bottom: none;
-        }
-
-    </style>
+    <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
-<div>
-    <h1>&#128526;Welcome to the Main Page!</h1>
-    <hr>
-</div>
+<div class="outer">
+    <div>
+        <h1>Admin Center</h1>
+        <hr>
+    </div>
+    <p class="greeting" th:text="'Hello, administrator ' + ${username}"></p>
+    <div class="button-container">
+        <h2>Management Center</h2>
+        <a th:href="@{/addClassPage}">
+            <button>Add Course To Database</button>
+        </a>
+        <a th:href="@{/deleteClassPage}">
+            <button>Delete Course From Database</button>
+        </a>
+        <a th:href="@{/searchClassPage}">
+            <button>Search Class</button>
+        </a>
+        <a th:href="@{/manageStudents}">
+            <button>Manage Students</button>
+        </a>
+    </div>
+    <button class="user-account-button" onclick="toggleUserMenu()">&#9776;</button>
 
-<p th:text="'Hello, administrator ' + ${username}"></p>
-
-
-<div class="button-container">
-    <h2>Management Center</h2>
-    <a th:href="@{/addClassPage}">
-        <button>Add Course To Database</button>
-    </a>
-    <a th:href="@{/deleteClassPage}">
-        <button>Delete Course From Database</button>
-    </a>
-    <a th:href="@{/searchClassPage}">
-        <button>Search Class</button>
-    </a>
-    <a th:href="@{/manageStudents}">
-        <button>Manage Students</button>
-    </a>
-</div>
-<button class="user-account-button" onclick="toggleUserMenu()">&#9776;</button>
-
-<!-- User account menu options -->
-<div class="user-account-menu" id="userMenu">
-    <a href="#">
-        Change Username
-    </a>
-    <a href="#">
-        Change Password
-    </a>
-    <a th:href="@{/logout}">
-        Sign Out
-    </a>
+    <!-- User account menu options -->
+    <div class="user-account-menu" id="userMenu">
+        <a href="#">
+            Change Username
+        </a>
+        <a href="#">
+            Change Password
+        </a>
+        <a th:href="@{/logout}">
+            Sign Out
+        </a>
+    </div>
 </div>
 </body>
 <script>

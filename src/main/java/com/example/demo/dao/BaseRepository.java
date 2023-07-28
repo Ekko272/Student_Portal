@@ -14,8 +14,11 @@ public interface BaseRepository {
     User checkLoginIn(String username, String password);
     User searchUserAndReturn(String username);
     int studentAddCourse(int studentId,Course c);
-    int studentDeletCourse(Course c);
+    int studentDeleteCourse(int studentId,Course c);
     List<Integer> checkCoursesStudentHas(int id);
+    void incEnrollment(Integer id);
+    void decEnrollment(Integer id);
+
 
 
 }

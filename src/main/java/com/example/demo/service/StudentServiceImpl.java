@@ -16,15 +16,12 @@ public class StudentServiceImpl implements StudentService{
     public int addCourse(int studentId, Course course) {
         if(course.getMaxStudent() - course.getEnrollment() > 0){
             baseRepository.studentAddCourse(studentId,course);
+            baseRepository.incEnrollment(course.getId());
             return 1;//adding success
         }
-//        if()
         else {
             return 2;//2 represent the course enrollment is already full
         }
-
-
-
     }
 
     @Override
@@ -36,6 +33,18 @@ public class StudentServiceImpl implements StudentService{
             }
         }
         return false;
+    }
+
+    @Override
+    public int deleteCourse(int studentId, Course course) {
+        if(checkStudentHasCourse(studentId, course.getId())) {
+            baseRepository.studentDeleteCourse(studentId, course);
+            baseRepository.decEnrollment(course.getId());
+            return 1;//delete success
+        }
+        else {
+            return 2;//fail
+        }
     }
 
 }

@@ -99,7 +99,7 @@ public class BaseRepositoryImpl implements BaseRepository {
 
     @Override
     public int studentAddCourse(int studentId,Course c) {
-        String sql = "INSERT INTO `helloWeb`.`users_course` (`users_id`, `course_id`) VALUES (?, ?);";
+        String sql = "INSERT INTO `helloWeb`.`student_course` (`student_id`, `course_id`) VALUES (?, ?);";
         try {
             jdbcTemplate.update(sql, studentId, c.getId());
         }catch (Exception e){
@@ -109,7 +109,13 @@ public class BaseRepositoryImpl implements BaseRepository {
     }
 
     @Override
-    public int studentDeletCourse(Course c) {
+    public int studentDeleteCourse(int studentId, Course c) {
+        String sql = "delete from student_course where student_id=? and course_id=?;";
+        try{
+            jdbcTemplate.update(sql, studentId, c.getId());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return 0;
     }
 
@@ -117,8 +123,8 @@ public class BaseRepositoryImpl implements BaseRepository {
     public List<Integer> checkCoursesStudentHas(int id) {
         String sql = "SELECT course.id\n" +
                 "FROM course\n" +
-                "JOIN users_course ON course.id = users_course.course_id\n" +
-                "WHERE users_course.users_id=?;";
+                "JOIN student_course ON course.id = student_course.course_id\n" +
+                "WHERE student_course.student_id=?;";
         List<Map<String, Object>> maps = jdbcTemplate.queryForList(sql, id);
         List<Integer> coursesHave = new ArrayList<>();
         for(int i=0; i < maps.size();i++){
@@ -126,6 +132,27 @@ public class BaseRepositoryImpl implements BaseRepository {
             coursesHave.add(o);
         }
         return coursesHave;
+
+    }
+
+    @Override
+    public void incEnrollment(Integer id) {
+        String sql="UPDATE course SET enrollment = enrollment + 1 WHERE id=?;";
+        try {
+            jdbcTemplate.update(sql, id);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void decEnrollment(Integer id) {
+        String sql="UPDATE course SET enrollment = enrollment - 1 WHERE id=?;";
+        try {
+            jdbcTemplate.update(sql, id);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
     }
 
