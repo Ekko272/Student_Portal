@@ -30,7 +30,7 @@ public class StudentAPI {
             return new ResponseEntity<>("Course Not Found",headers, HttpStatus.OK);
         }
         if(studentService.checkStudentHasCourse(user.getId(), courseId)){
-            return new ResponseEntity<>("Already Has this course",headers, HttpStatus.OK);
+            return new ResponseEntity<>("You already have this course",headers, HttpStatus.OK);
         }
         else {
             if(studentService.addCourse(user.getId(), adminService.serachCourse(courseId)) == 1)
@@ -49,6 +49,7 @@ public class StudentAPI {
     public ResponseEntity<String> deleteClass(@PathVariable Integer id){
         try {
             //deleteMethod in Repository
+
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             return ResponseEntity.notFound().build();

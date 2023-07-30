@@ -90,5 +90,9 @@ class DemoApplicationTests {
         List<Integer> integers = baseRepository.checkCoursesStudentHas(55);
     }
 
+    @Test
+    void findAll(){
+        baseRepository.findAllCourse();
+    }
 
 }

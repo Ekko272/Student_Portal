@@ -9,16 +9,16 @@
 <body>
 <div class="outer">
     <div>
-        <h1>Student Portal</h1>
+        <img src="/img/logo.png">
         <hr>
     </div>
 
-    <p class="greeting" th:text="'Hello, student ' + ${username}"></p>
+    <p class="greeting" th:text="'How\'s going, ' + ${username}"></p>
 
     <div ng-app="addCourseStuApp" ng-controller="addCourseStuCont">
         <div class="button-container" >
             <a id="addCourseBtn">
-                <button class="button-80">Add Course</button>
+                <button class="button-80">Add Course <img src="/img/add.png" width="30px" height="30px"> </button>
             </a>
             <a id="deleteCourseBtn">
                 <button class="button-80">Delete Course</button>
@@ -26,7 +26,7 @@
             <a id="searchBtn">
                 <button class="button-80">Search Course</button>
             </a>
-            <a>
+            <a th:href="@{/browseAllClassPage}">
                 <button class="button-80">Browse All Courses</button>
             </a>
             <a>
@@ -72,7 +72,7 @@
 <script src="/script/studentMP.js"></script>
 <script>
     function toggleUserMenu() {
-        var menu = document.getElementById("userMenu");
+        const menu = document.getElementById("userMenu");
         if (menu.style.display === "block") {
             menu.style.display = "none";
         } else {

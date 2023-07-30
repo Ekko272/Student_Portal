@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>browseAllClass</title>
+</head>
+<body>
+<h1>All Courses</h1>
+<div th:each="course : ${allCourse}">
+    <p th:text="${course.name + ' - ' + course.enrollment + '/' + course.maxStudent}"></p>
+</div>
+
+</body>
+</html>

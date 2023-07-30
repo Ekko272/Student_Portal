@@ -156,5 +156,12 @@ public class BaseRepositoryImpl implements BaseRepository {
 
     }
 
+    @Override
+    public List<Course> findAllCourse() {
+        String sql="select * from course;";
+        List<Course> courseList = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Course.class));
+        return courseList;
+    }
+
 
 }

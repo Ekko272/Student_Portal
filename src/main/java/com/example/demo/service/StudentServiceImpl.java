@@ -47,4 +47,9 @@ public class StudentServiceImpl implements StudentService{
         }
     }
 
+    @Override
+    public List<Course> findAllCourse() {
+        return baseRepository.findAllCourse();
+    }
+
 }

@@ -11,9 +11,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class AdminMainPageCont {
-    @Autowired
-    AdminService adminService;
-
     @RequestMapping(value="/addClassPage")
     public ModelAndView addClass(HttpServletRequest request){
         HttpSession session = request.getSession();

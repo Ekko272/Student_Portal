@@ -18,6 +18,7 @@ public interface BaseRepository {
     List<Integer> checkCoursesStudentHas(int id);
     void incEnrollment(Integer id);
     void decEnrollment(Integer id);
+    List<Course> findAllCourse();
 
 
 
