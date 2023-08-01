@@ -9,4 +9,7 @@ public interface StudentService {
     boolean checkStudentHasCourse(int studentId, int courseId);
     int deleteCourse(int studentId, Course course);
     List<Course> findAllCourse();
+    List<Integer> checkCoursesStudentHas(int id);
+    List<Course> findAllCourseStudentHas(int id);
+
 }

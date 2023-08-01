@@ -1,9 +1,9 @@
 package com.example.demo.dao;
 
 import com.example.demo.model.Course;
+import com.example.demo.model.Order;
 import com.example.demo.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.relational.core.sql.In;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -162,6 +162,25 @@ public class BaseRepositoryImpl implements BaseRepository {
         List<Course> courseList = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Course.class));
         return courseList;
     }
+
+    @Override
+    public List<Course> findAllCourseStudentHas(int id) {
+        List<Course> courseList = null;
+        try {
+
+            String sql = "SELECT * FROM course JOIN student_course ON course.id = student_course.course_id WHERE student_course.student_id=?;";
+            courseList = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Course.class), id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return courseList;
+    }
+
+    @Override
+    public int StoreOrderPayment(int studentId, Order order) {
+        return 0;
+    }
+
 
 
 }

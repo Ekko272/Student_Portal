@@ -1,6 +1,7 @@
 package com.example.demo.dao;
 
 import com.example.demo.model.Course;
+import com.example.demo.model.Order;
 import com.example.demo.model.User;
 
 import java.util.List;
@@ -19,6 +20,9 @@ public interface BaseRepository {
     void incEnrollment(Integer id);
     void decEnrollment(Integer id);
     List<Course> findAllCourse();
+    List<Course> findAllCourseStudentHas(int id);
+
+    int StoreOrderPayment(int studentId, Order order);
 
 
 

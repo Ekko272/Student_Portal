@@ -51,7 +51,7 @@ public class AdminAPI extends HttpServlet {
     }
 
     @PostMapping("/api/searchClass")
-    public ResponseEntity<Course> searchClass(@RequestBody Integer id) throws JsonProcessingException {
+    public ResponseEntity<Course> searchClass(@RequestBody Integer id, HttpSession session) throws JsonProcessingException {
         Course course = adminService.serachCourse(id);
         //User cruser = (User)session.getAttribute("cruser");
         //Proved ResponseEntity method is able to pass a session

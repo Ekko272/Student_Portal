@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Make Payment</title>
+    <script src="https://cdn.staticfile.org/angular.js/1.4.6/angular.min.js"></script>
+    <script src="https://cdn.bootcss.com/angular.js/1.7.0/angular-route.min.js"></script>
+    <style>
+        td, th {
+            padding: 0 20px; /* Top and bottom padding is 0, left and right padding is 20px */
+            border: solid black 1px;
+        }
+
+    </style>
+</head>
+<body ng-app="makePaymentApp" ng-controller="makePaymentCont">
+<div>
+    <div>
+        <p>Make Payment For Your Course:</p>
+        <table>
+            <thead>
+            <tr>
+                <th>Course ID</th>
+                <th>Course Name</th>
+                <th>Date To Enroll</th>
+                <th>Note</th>
+                <th>Price</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="course : ${courseList}">
+                <td id="courseId" th:text="${course.id}"></td>
+                <td th:text="${course.name}"></td>
+                <td><input type="date" ng-model="enterDate"/></td>
+                <td><input ng-model="note"/></td>
+                <td th:text="'$' + ${course.price}"></td>
+            </tr>
+            </tbody>
+            <tfoot>
+
+            <tr>
+                <td>Total</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td id="totalValue" th:text="'$' + ${total}"></td>
+            </tr>
+            </tfoot>
+        </table>
+    <button ng-click="makePayment()">Pay</button>
+    </div>
+</div>
+<script>
+    var app = angular.module('makePaymentApp', []);
+    app.controller('makePaymentCont', function ($http, $scope) {
+
+        const courseIdElements = document.querySelectorAll('td#courseId');
+        const courseIdArray = [];
+        courseIdElements.forEach((element) => {
+            courseIdArray.push(parseInt(element.textContent));
+        });
+
+        var totalFromThymeleafElement = angular.element(document.getElementById('totalValue')).text();
+
+        /*private int id;
+        private double fee;
+        private String enterDate;
+        private int courseId;
+        private String paymentDate;
+        private boolean approved;
+        private String note;
+         */
+
+        $scope.total = String(totalFromThymeleafElement);
+        $scope.courseIds = courseIdArray;
+        $scope.newClass ={id:generateOrderId(), fee:'', enterDate:'', courseId:'',paymentDate:'',approved:false,note:''}
+        $scope.makePayment = function () {
+            $http.post('/api/makePayment', $scope.newClass)
+                .then(function (response) {
+                   response.data;
+                })
+                .catch(function (error) {
+                    console.error(error.data);
+                });
+        };
+    });
+
+
+    function generateOrderId() {
+        const characters = '0123456789';
+        const orderIdLength = 6;
+        let orderId = '';
+        function isCharacterPresent(char) {
+            return orderId.indexOf(char) !== -1;
+        }
+        while (orderId.length < orderIdLength) {
+            const randomIndex = Math.floor(Math.random() * characters.length);
+            const randomCharacter = characters[randomIndex];
+            if (!isCharacterPresent(randomCharacter)) {
+                orderId += randomCharacter;
+            }
+        }
+        return orderId;
+    }
+
+</script>
+
+</body>
+</html>

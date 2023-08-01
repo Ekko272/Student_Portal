@@ -2,6 +2,7 @@ package com.example.demo;
 
 import com.example.demo.dao.BaseRepository;
 import com.example.demo.model.Course;
+import com.example.demo.model.Order;
 import com.example.demo.model.Student;
 import com.example.demo.model.User;
 import com.example.demo.service.AdminService;
@@ -94,5 +95,15 @@ class DemoApplicationTests {
     void findAll(){
         baseRepository.findAllCourse();
     }
+
+    @Test
+    void sdd(){
+        String tp = "$4200.2";
+
+        String as = tp.replace("$","");
+        double result = Double.parseDouble(as);
+        System.out.println(result);
+    }
+
 
 }

@@ -23,20 +23,21 @@
             <a id="deleteCourseBtn">
                 <button class="button-80">Delete Course</button>
             </a>
-            <a id="searchBtn">
-                <button class="button-80">Search Course</button>
-            </a>
             <a th:href="@{/browseAllClassPage}">
                 <button class="button-80">Browse All Courses</button>
             </a>
-            <a>
-                <button class="button-80">View My Courses</button>
+            <a th:href="@{/MyCoursePage}">
+                <button class="button-80">My Course & Schedule</button>
+            </a>
+            <a th:href="@{/makePaymentPage}">
+                <button class="button-80">Make Payment</button>
             </a>
             <a>
-                <button class="button-80">Contact Teacher</button>
+                <button class="button-80">Discussion Center</button>
             </a>
         </div>
         <!-- The Modal -->
+
         <div id="myModal" class="modal">
             <!-- Modal content -->
             <div class="modal-content">
@@ -51,6 +52,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 </div>
 

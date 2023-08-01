@@ -20,6 +20,8 @@ public class StudentAPI {
     StudentService studentService;
     @Autowired
     AdminService adminService;
+
+
     @PostMapping("/addCourseStu")
     public ResponseEntity<String> addClass(@RequestBody Integer courseId, HttpSession session){
         User user = (User)session.getAttribute("cruser");
@@ -46,15 +48,36 @@ public class StudentAPI {
     }
 
     @DeleteMapping(value = "/deleteCourseStu")
-    public ResponseEntity<String> deleteClass(@PathVariable Integer id){
+    public ResponseEntity<String> deleteClass(@PathVariable Integer id, HttpSession session){
         try {
-            //deleteMethod in Repository
+            User user = (User)session.getAttribute("cruser");
+            Course course = adminService.serachCourse(id);
+            studentService.deleteCourse(user.getId(), course);
 
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @PostMapping("/makePayment")
+    public ResponseEntity<String> makePayment(@RequestBody String totalPrice){
+
+
+        double totalP = getTotalPrice(totalPrice);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.TEXT_PLAIN);
+        return new ResponseEntity<>("Cool", headers, HttpStatus.OK);
+
+    }
+
+    public double getTotalPrice(String tp){
+        String an = tp.replace("$","");
+        double result = Double.parseDouble(an);
+        return result;
+    }
+
+
 
 
 

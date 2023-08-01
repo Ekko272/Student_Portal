@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.model.Course;
+import com.example.demo.model.Order;
 import com.example.demo.model.User;
 
 public interface AdminService {
@@ -12,4 +13,5 @@ public interface AdminService {
     User checkLogin(String usn, String psw);
     int searchUser(String username);
     User searchUserAndReturn(String username);
+    int StoreOrderPayment(int studentId, Order order);
 }

@@ -122,7 +122,6 @@ a {
     align-items: center;
     cursor: pointer;
 }
-
 .user-account-menu {
     position: absolute;
     top: 50px;
@@ -132,7 +131,6 @@ a {
     border-radius: 5px;
     display: none;
 }
-
 .user-account-menu a {
     display: block;
     padding: 10px;
@@ -140,7 +138,6 @@ a {
     color: #333;
     border-bottom: 1px solid #ccc;
 }
-
 .user-account-menu a:last-child {
     border-bottom: none;
 }

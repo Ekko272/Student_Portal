@@ -35,6 +35,8 @@ public class StudentServiceImpl implements StudentService{
         return false;
     }
 
+
+
     @Override
     public int deleteCourse(int studentId, Course course) {
         if(checkStudentHasCourse(studentId, course.getId())) {
@@ -50,6 +52,16 @@ public class StudentServiceImpl implements StudentService{
     @Override
     public List<Course> findAllCourse() {
         return baseRepository.findAllCourse();
+    }
+
+    @Override
+    public List<Integer> checkCoursesStudentHas(int id) {
+        return baseRepository.checkCoursesStudentHas(id);
+    }
+
+    @Override
+    public List<Course> findAllCourseStudentHas(int id) {
+        return baseRepository.findAllCourseStudentHas(id);
     }
 
 }
