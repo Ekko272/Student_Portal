@@ -105,5 +105,20 @@ class DemoApplicationTests {
         System.out.println(result);
     }
 
+    @Test
+    void testOrderSaving(){
+        /*
+        private int id;
+    private double fee;
+    private String enterDate;
+    private int courseId;
+    private String paymentDate;
+    private boolean approved;
+    private String note;
+    private int studentId;
+    */
+        baseRepository.saveOrderPayment(12,new Order(1,2003.2,"eqw",12,"1233",false,"213dsqa",32));
+    }
+
 
 }

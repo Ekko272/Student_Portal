@@ -167,7 +167,6 @@ public class BaseRepositoryImpl implements BaseRepository {
     public List<Course> findAllCourseStudentHas(int id) {
         List<Course> courseList = null;
         try {
-
             String sql = "SELECT * FROM course JOIN student_course ON course.id = student_course.course_id WHERE student_course.student_id=?;";
             courseList = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Course.class), id);
         } catch (Exception e) {
@@ -177,7 +176,15 @@ public class BaseRepositoryImpl implements BaseRepository {
     }
 
     @Override
-    public int StoreOrderPayment(int studentId, Order order) {
+    public int saveOrderPayment(int studentId, Order order) {
+        String sql = "INSERT INTO orders (id,fee,enterDate,courseId,paymentDate,approved,note,studentId)\n" +
+                "VALUES (?,?,?,?,?,?,?);";
+        jdbcTemplate.update(sql,order.getId(),order.getFee(),
+                order.getCourseId(),order.getPaymentDate(),order.isApproved(),order.getNote(),studentId);
+
+//16:11:01	INSERT INTO orders (id,fee,enterDate,courseId,paymentDate,approved,note,studentId) VALUES (1,2,'3',4,'5',0,'6',2)	Error Code: 1292. Incorrect date value: '3' for column 'enterDate' at row 1	0.0012 sec
+
+
         return 0;
     }
 

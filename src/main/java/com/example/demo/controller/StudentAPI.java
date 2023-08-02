@@ -5,7 +5,6 @@ import com.example.demo.model.Order;
 import com.example.demo.model.User;
 import com.example.demo.service.AdminService;
 import com.example.demo.service.StudentService;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -14,10 +13,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
-import java.util.Map;
+
 
 @Controller
 @RequestMapping("/api")
@@ -66,14 +64,14 @@ public class StudentAPI {
         }
     }
 
-    @PostMapping("/makePayment")
-    public ResponseEntity<String> makePayment(@RequestBody Order order){
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.TEXT_PLAIN);
-        return new ResponseEntity<>("Cool", headers, HttpStatus.OK);
-
-    }
+//    @PostMapping("/makePayment")
+//    public ResponseEntity<String> makePayment(@RequestBody Order order){
+//
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setContentType(MediaType.TEXT_PLAIN);
+//        return new ResponseEntity<>("Cool", headers, HttpStatus.OK);
+//
+//    }
 
 //    public double getTotalPrice(String tp){
 //        String an = tp.replace("$","");
@@ -81,7 +79,20 @@ public class StudentAPI {
 //        return result;
 //    }
 
+    @PostMapping("/makePayment")
+    public ResponseEntity<String> makePayment(@RequestBody List<Order> paymentData, HttpSession session) {
 
+        User user = (User)session.getAttribute("cruser");
+        int studentId = user.getId();
+
+        for (Order payment : paymentData) {
+            System.out.println("Course ID: " + payment.getId());
+
+            System.out.println("-------------------------------------");
+        }
+
+        return ResponseEntity.ok("Payment data received successfully!");
+    }
 
 
 

@@ -22,7 +22,7 @@ public interface BaseRepository {
     List<Course> findAllCourse();
     List<Course> findAllCourseStudentHas(int id);
 
-    int StoreOrderPayment(int studentId, Order order);
+    int saveOrderPayment(int studentId, Order order);
 
 
 
