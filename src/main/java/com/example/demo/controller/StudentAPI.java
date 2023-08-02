@@ -1,9 +1,11 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Course;
+import com.example.demo.model.Order;
 import com.example.demo.model.User;
 import com.example.demo.service.AdminService;
 import com.example.demo.service.StudentService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -12,6 +14,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/api")
@@ -61,21 +67,21 @@ public class StudentAPI {
     }
 
     @PostMapping("/makePayment")
-    public ResponseEntity<String> makePayment(@RequestBody String totalPrice){
+    public ResponseEntity<String> makePayment(@RequestBody Order order){
 
-
-        double totalP = getTotalPrice(totalPrice);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.TEXT_PLAIN);
         return new ResponseEntity<>("Cool", headers, HttpStatus.OK);
 
     }
 
-    public double getTotalPrice(String tp){
-        String an = tp.replace("$","");
-        double result = Double.parseDouble(an);
-        return result;
-    }
+//    public double getTotalPrice(String tp){
+//        String an = tp.replace("$","");
+//        double result = Double.parseDouble(an);
+//        return result;
+//    }
+
+
 
 
 

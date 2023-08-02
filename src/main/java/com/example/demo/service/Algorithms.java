@@ -7,7 +7,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class TestMethod {
+public class Algorithms {
     public static void main(String[] args) {
         String startDateString = "08/02/2023";
         int courseLengthInWeeks = 20;
@@ -42,7 +42,7 @@ public class TestMethod {
                 calendar.add(Calendar.WEEK_OF_YEAR, 1);
             }
 
-        } catch (ParseException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

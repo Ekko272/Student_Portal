@@ -1,6 +1,5 @@
 package com.example.demo.model;
 
-import com.google.gson.Gson;
 import lombok.Data;
 
 @Data

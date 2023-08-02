@@ -6,11 +6,24 @@
     <script src="https://cdn.staticfile.org/angular.js/1.4.6/angular.min.js"></script>
     <script src="https://cdn.bootcss.com/angular.js/1.7.0/angular-route.min.js"></script>
     <style>
-        td, th {
-            padding: 0 20px; /* Top and bottom padding is 0, left and right padding is 20px */
-            border: solid black 1px;
+        table {
+            border-collapse: collapse;
+            width: 100%;
         }
 
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
     </style>
 </head>
 <body ng-app="makePaymentApp" ng-controller="makePaymentCont">
@@ -25,30 +38,30 @@
                 <th>Date To Enroll</th>
                 <th>Note</th>
                 <th>Price</th>
-                <th></th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="course : ${courseList}">
                 <td id="courseId" th:text="${course.id}"></td>
                 <td th:text="${course.name}"></td>
-                <td><input type="date" ng-model="enterDate"/></td>
-                <td><input ng-model="note"/></td>
+                <td><input type="date" id="'date' + ${course.id}" /></td>
+                <td><input id="'note' + ${course.id}" /></td>
                 <td th:text="'$' + ${course.price}"></td>
             </tr>
             </tbody>
             <tfoot>
-
             <tr>
                 <td>Total</td>
-                <td></td>
+                <td id="orderID"></td>
                 <td></td>
                 <td></td>
                 <td id="totalValue" th:text="'$' + ${total}"></td>
             </tr>
             </tfoot>
         </table>
-    <button ng-click="makePayment()">Pay</button>
+
+
+        <button ng-click="makePayment()">Pay</button>
     </div>
 </div>
 <script>
@@ -60,22 +73,14 @@
         courseIdElements.forEach((element) => {
             courseIdArray.push(parseInt(element.textContent));
         });
-
         var totalFromThymeleafElement = angular.element(document.getElementById('totalValue')).text();
-
-        /*private int id;
-        private double fee;
-        private String enterDate;
-        private int courseId;
-        private String paymentDate;
-        private boolean approved;
-        private String note;
-         */
 
         $scope.total = String(totalFromThymeleafElement);
         $scope.courseIds = courseIdArray;
-        $scope.newClass ={id:generateOrderId(), fee:'', enterDate:'', courseId:'',paymentDate:'',approved:false,note:''}
+        $scope.newClass ={id:generateOrderId(), fee:'', enterDate:'', courseId:'', paymentDate:'', approved:false, note:''}
         $scope.makePayment = function () {
+            const courseDataList = getDataFromInputs();
+
             $http.post('/api/makePayment', $scope.newClass)
                 .then(function (response) {
                    response.data;
@@ -103,7 +108,11 @@
         }
         return orderId;
     }
-
+    function updateOrderId() {
+        const orderId = generateOrderId();
+        document.getElementById('orderID').textContent = orderId;
+    }
+    updateOrderId();
 </script>
 
 </body>

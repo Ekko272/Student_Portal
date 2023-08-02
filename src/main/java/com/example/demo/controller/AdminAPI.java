@@ -1,7 +1,6 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Course;
-import com.example.demo.model.User;
 import com.example.demo.service.AdminService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.servlet.http.HttpServlet;
@@ -23,6 +22,8 @@ public class AdminAPI extends HttpServlet {
     @PostMapping("/api/addClass")//mapping地址为restful api post地址
     public ResponseEntity<String> addClass(@RequestBody Course c)//declare请求主体。Course c就是$http.post('/api/addClass',$scope.newClass)的$scope.newClass。
     {
+        //ResponseEntity最多接受两个参数，一个@RequestBody，一个HTTPsession
+        //从客户端传来的参数最多为一个object
         int result = adminService.addCourses(c);
         if(result == 1)
         {

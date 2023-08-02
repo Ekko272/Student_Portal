@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Controller
@@ -23,6 +25,12 @@ public class StudentMainPageCont {
         ModelAndView mv = new ModelAndView("browseAllClass");
         mv.addObject("user",currentUser);
         List<Course> allCourse = studentService.findAllCourse();
+        Collections.sort(allCourse, new Comparator<Course>() {
+            @Override
+            public int compare(Course course1, Course course2) {
+                return course1.getName().compareTo(course2.getName());
+            }
+        });
         mv.addObject("allCourse", allCourse);
         return mv;
     }
@@ -49,7 +57,7 @@ public class StudentMainPageCont {
         User currentUser = (User)session.getAttribute("cruser");
         List<Course> courseList = studentService.findAllCourseStudentHas(currentUser.getId());
 
-        ModelAndView mv = new ModelAndView("makePayment");
+        ModelAndView mv = new ModelAndView("");
         mv.addObject("user",currentUser);
         mv.addObject("courseList",courseList);
         return mv;

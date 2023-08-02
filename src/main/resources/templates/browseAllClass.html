@@ -3,13 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <title>browseAllClass</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+    </style>
 </head>
 <body>
 <h1>All Courses</h1>
-<div th:each="course : ${allCourse}">
-    <p th:text="${course.toString()}"></p>
-<!--    <p th:text="${course.id + ' - ' + course.name + ' - ' + course.enrollment + '/' + course.maxStudent}"></p>-->
-</div>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Time Interval</th>
+        <th>Max Students</th>
+        <th>Enrollment</th>
+        <th>Location</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Mode</th>
+        <th>Week Days</th>
+        <th>Instructor</th>
+        <th>Number of Weeks</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="course : ${allCourse}">
+        <td th:text="${course.id}"></td>
+        <td th:text="${course.name}"></td>
+        <td th:text="${course.startDate}"></td>
+        <td th:text="${course.endDate}"></td>
+        <td th:text="${course.timeInterval}"></td>
+        <td th:text="${course.maxStudent}"></td>
+        <td th:text="${course.enrollment}"></td>
+        <td th:text="${course.location}"></td>
+        <td th:text="${course.description}"></td>
+        <td th:text="${course.price}"></td>
+        <td th:text="${course.mode}"></td>
+        <td th:text="${course.weekDays}"></td>
+        <td th:text="${course.instructor}"></td>
+        <td th:text="${course.numOfWeeks}"></td>
+    </tr>
+    </tbody>
+</table>
 
 </body>
 </html>
