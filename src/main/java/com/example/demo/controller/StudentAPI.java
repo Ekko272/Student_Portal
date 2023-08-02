@@ -79,6 +79,13 @@ public class StudentAPI {
 //        return result;
 //    }
 
+    //TODO:
+    // a) complete makePayment.html:
+    // 1. User input for enterDate
+    // 2. Retrieving data for enterDate and sent to here
+    // b) Once successfully save the orders, send to Admin main page
+    // let adimin deal with the orders and make approved to true
+
     @PostMapping("/makePayment")
     public ResponseEntity<String> makePayment(@RequestBody List<Order> paymentData, HttpSession session) {
 

@@ -175,6 +175,8 @@ public class BaseRepositoryImpl implements BaseRepository {
         return courseList;
     }
 
+
+    //TODO: complete this method, fix error for data type(type date in database for enterDate and paymentDate)
     @Override
     public int saveOrderPayment(int studentId, Order order) {
         String sql = "INSERT INTO orders (id,fee,enterDate,courseId,paymentDate,approved,note,studentId)\n" +
