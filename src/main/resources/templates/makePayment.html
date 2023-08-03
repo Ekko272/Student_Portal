@@ -134,7 +134,6 @@
     </tr>
     </thead>
     <tbody>
-    <!-- Thymeleaf iteration to loop through the Course list -->
     <tr th:each="course : ${courseList}" th:attr="data-course-id=${course.id}, data-course-name=${course.name}, data-course-price=${course.price}">
         <td th:text="${course.id}"></td>
         <td th:text="${course.name}"></td>
@@ -145,11 +144,8 @@
     </tr>
     </tbody>
 </table>
-
-<!-- Button to send data to the backend -->
 <button onclick="sendDataToBackend()">Submit Payment</button>
 
-<!-- JavaScript code to send data to the backend -->
 <script th:inline="javascript">
     function sendDataToBackend() {
         var courses = document.querySelectorAll('tr[data-course-id]');
@@ -185,7 +181,6 @@
             paymentData.push(courseData);
         });
 
-        // Sending the payment data to the backend using Fetch API
         fetch('/api/makePayment', {
             method: 'POST',
             headers: {
