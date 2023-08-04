@@ -117,7 +117,7 @@ class DemoApplicationTests {
     private String note;
     private int studentId;
     */
-        baseRepository.saveOrderPayment(12,new Order(1,2003.2,"eqw",12,"1233",false,"213dsqa",32));
+        //baseRepository.saveOrderPayment(12,new Order(1,2003.2,"2023-01-01",12,"2023-01-01",false,"213dsqa",32));
     }
 
 

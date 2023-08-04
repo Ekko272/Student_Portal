@@ -30,15 +30,11 @@ public class Algorithms {
             calendar.setTime(startDate);
 
             for (int i = 0; i < courseLengthInWeeks; i++) {
-                // Find the next occurrence of the specified day of the week
                 while (!calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, java.util.Locale.US).equalsIgnoreCase(dayOfWeek)) {
                     calendar.add(Calendar.DAY_OF_MONTH, 1);
                 }
-
-                // Add the date to the schedule
                 schedule.add(sdf.format(calendar.getTime()));
 
-                // Move to the next week
                 calendar.add(Calendar.WEEK_OF_YEAR, 1);
             }
 

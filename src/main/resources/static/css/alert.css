@@ -1,0 +1,25 @@
+.sucAlert {
+    padding: 10px;
+    font-family: AppleSystemUIFont, sans-serif;
+    background-color: rgb(107, 232, 96);
+    border: 1px solid red;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 33.33%;
+    height: 80px;
+}
+.failAlert{
+    padding: 20px;
+    background-color: rgb(235, 110, 110);
+    border: 1px solid red;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 33.33%;
+    height: 80px;
+}

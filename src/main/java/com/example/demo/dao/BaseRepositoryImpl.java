@@ -179,17 +179,29 @@ public class BaseRepositoryImpl implements BaseRepository {
     //TODO: complete this method, fix error for data type(type date in database for enterDate and paymentDate)
     @Override
     public int saveOrderPayment(int studentId, Order order) {
-        String sql = "INSERT INTO orders (id,fee,enterDate,courseId,paymentDate,approved,note,studentId)\n" +
-                "VALUES (?,?,?,?,?,?,?);";
-        jdbcTemplate.update(sql,order.getId(),order.getFee(),
-                order.getCourseId(),order.getPaymentDate(),order.isApproved(),order.getNote(),studentId);
-
-//16:11:01	INSERT INTO orders (id,fee,enterDate,courseId,paymentDate,approved,note,studentId) VALUES (1,2,'3',4,'5',0,'6',2)	Error Code: 1292. Incorrect date value: '3' for column 'enterDate' at row 1	0.0012 sec
-
+        String sql = "INSERT INTO orders (id, fee, enterDate, courseId, paymentDate, approved, note, studentId) VALUES (?,?,?,?,?,?,?,?);";
+        try {
+            jdbcTemplate.update(sql, order.getId(), order.getFee(), order.getEnterDate(),
+                    order.getCourseId(), order.getPaymentDate(), order.isApproved(), order.getNote(), studentId);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
         return 0;
     }
 
+    @Override
+    public int approvePayment(Order order) {
+        String sql = "update orders set approved=1 where id=?;";
+        try {
+            int i = jdbcTemplate.update(sql, order.getId());
+            return i;
+        }catch (Exception e){
+            e.printStackTrace();
+            return 0;
+        }
+
+    }
 
 
 }

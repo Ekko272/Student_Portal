@@ -11,9 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Service
 public class AdminServiceImpl implements AdminService{
-
     @Autowired
     BaseRepository baseRepository;
+
     @Override
     public int addCourses(Course c) {
         return baseRepository.addCourse(c);
@@ -48,7 +48,6 @@ public class AdminServiceImpl implements AdminService{
     @Override
     public int searchUser(String username) {
         return baseRepository.searchUser(username);
-
     }
 
     @Override
@@ -59,6 +58,11 @@ public class AdminServiceImpl implements AdminService{
     @Override
     public int StoreOrderPayment(int studentId, Order order) {
         return 0;
+    }
+
+    @Override
+    public int approvePayment(Order order) {
+        return baseRepository.approvePayment(order);
     }
 
 

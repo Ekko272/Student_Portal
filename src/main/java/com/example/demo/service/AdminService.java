@@ -13,4 +13,5 @@ public interface AdminService {
     int searchUser(String username);
     User searchUserAndReturn(String username);
     int StoreOrderPayment(int studentId, Order order);
+    int approvePayment(Order order);
 }

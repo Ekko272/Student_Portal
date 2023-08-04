@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.dao.BaseRepository;
 import com.example.demo.model.Course;
+import com.example.demo.model.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -62,6 +63,9 @@ public class StudentServiceImpl implements StudentService{
     @Override
     public List<Course> findAllCourseStudentHas(int id) {
         return baseRepository.findAllCourseStudentHas(id);
+    }
+    public int saveOrderPayment(int studentId, Order order){
+        return baseRepository.saveOrderPayment(studentId,order);
     }
 
 }

@@ -21,8 +21,9 @@ public interface BaseRepository {
     void decEnrollment(Integer id);
     List<Course> findAllCourse();
     List<Course> findAllCourseStudentHas(int id);
-
     int saveOrderPayment(int studentId, Order order);
+    int approvePayment(Order order);
+
 
 
 

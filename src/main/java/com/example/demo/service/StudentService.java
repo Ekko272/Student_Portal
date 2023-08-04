@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.model.Course;
+import com.example.demo.model.Order;
 
 import java.util.List;
 
@@ -11,5 +12,6 @@ public interface StudentService {
     List<Course> findAllCourse();
     List<Integer> checkCoursesStudentHas(int id);
     List<Course> findAllCourseStudentHas(int id);
+    int saveOrderPayment(int studentId, Order order);
 
 }

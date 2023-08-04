@@ -14,8 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
-
 
 @Controller
 @RequestMapping("/api")
@@ -91,14 +91,14 @@ public class StudentAPI {
 
         User user = (User)session.getAttribute("cruser");
         int studentId = user.getId();
+        Date currentDate = new Date();
 
-        for (Order payment : paymentData) {
-            System.out.println("Course ID: " + payment.getId());
-
-            System.out.println("-------------------------------------");
+        java.sql.Date sqlDate = new java.sql.Date(currentDate.getTime());
+        for(int i = 0; i < paymentData.size(); i++){
+            paymentData.get(i).setPaymentDate(sqlDate);
+            studentService.saveOrderPayment(studentId, paymentData.get(i));
         }
-
-        return ResponseEntity.ok("Payment data received successfully!");
+        return ResponseEntity.ok("ok");
     }
 
 
