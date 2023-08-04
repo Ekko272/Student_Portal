@@ -40,6 +40,18 @@ KEY `course_id` (`course_id`),
 CONSTRAINT `student_course_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `users` (`id`),
 CONSTRAINT `student_course_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+CREATE TABLE `orders` (
+`id` int NOT NULL,
+`fee` double NOT NULL,
+`enterDate` date NOT NULL,
+`courseId` int NOT NULL,
+`paymentDate` date DEFAULT NULL,
+`approved` tinyint(1) DEFAULT NULL,
+`note` varchar(255) DEFAULT NULL,
+`studentId` int DEFAULT NULL,
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
 ```
 For administrator:
 
