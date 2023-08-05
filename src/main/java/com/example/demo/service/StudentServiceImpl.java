@@ -18,6 +18,7 @@ public class StudentServiceImpl implements StudentService{
         if(course.getMaxStudent() - course.getEnrollment() > 0){
             baseRepository.studentAddCourse(studentId,course);
             baseRepository.incEnrollment(course.getId());
+            baseRepository.setCourseApprovedOrNot(studentId,course.getId(),0);
             return 1;//adding success
         }
         else {
@@ -64,8 +65,19 @@ public class StudentServiceImpl implements StudentService{
     public List<Course> findAllCourseStudentHas(int id) {
         return baseRepository.findAllCourseStudentHas(id);
     }
+
+    @Override
+    public List<Course> findAllNotApprovedCourseStudentHas(int id) {
+        return baseRepository.findAllNotApprovedCourseStudentHas(id);
+    }
+
     public int saveOrderPayment(int studentId, Order order){
         return baseRepository.saveOrderPayment(studentId,order);
+    }
+
+    @Override
+    public int setCourseApprovedOrNot(int studentId, int courseId, int choice) {
+        return baseRepository.setCourseApprovedOrNot(studentId,courseId,choice);
     }
 
 }

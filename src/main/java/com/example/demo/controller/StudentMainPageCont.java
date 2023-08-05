@@ -39,14 +39,19 @@ public class StudentMainPageCont {
     public ModelAndView makePayment(HttpServletRequest request){
         HttpSession session = request.getSession();
         User currentUser = (User)session.getAttribute("cruser");
-        List<Course> courseList = studentService.findAllCourseStudentHas(currentUser.getId());
+        List<Course> courseList = studentService.findAllNotApprovedCourseStudentHas(currentUser.getId());
         double total = 0;
         for(int i=0; i<courseList.size();i++){
             total+=courseList.get(i).getPrice();
         }
         ModelAndView mv = new ModelAndView("makePayment");
         mv.addObject("user",currentUser);
-        mv.addObject("courseList",courseList);
+        if(courseList.size()==0){
+            mv.addObject("courseList",null);
+        }
+        else {
+            mv.addObject("courseList", courseList);
+        }
         mv.addObject("total",total);
         return mv;
     }

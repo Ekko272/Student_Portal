@@ -60,99 +60,105 @@
     </style>
 </head>
 <body>
-<div>
-<h1>Course List</h1>
-<table>
-    <thead>
-    <tr>
-        <th>Course ID</th>
-        <th>Course Name</th>
-        <th>Course Price</th>
-        <th>User Remarks</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="course : ${courseList}" th:attr="data-course-id=${course.id}, data-course-name=${course.name}, data-course-price=${course.price}">
-        <td th:text="${course.id}"></td>
-        <td th:text="${course.name}"></td>
-        <td th:text="${course.price}"></td>
-        <td>
-            <input type="text" th:attr="data-remarks-for=${course.id}" />
-        </td>
-    </tr>
-    </tbody>
-</table>
-<button onclick="sendDataToBackend()">Submit Payment</button>
+    <div th:if="${courseList == null}">
+        <p>You are all set, waiting for admin response!</p>
+    </div>
+    <div th:if="${courseList != null}">
+        <div>
+            <h1>Course List</h1>
+            <div>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Course ID</th>
+                        <th>Course Name</th>
+                        <th>Course Price</th>
+                        <th>User Remarks</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="course : ${courseList}" th:attr="data-course-id=${course.id}, data-course-name=${course.name}, data-course-price=${course.price}">
+                        <td th:text="${course.id}"></td>
+                        <td th:text="${course.name}"></td>
+                        <td th:text="${course.price}"></td>
+                        <td>
+                            <input type="text" th:attr="data-remarks-for=${course.id}" />
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <button onclick="sendDataToBackend()">Submit Payment</button>
+            </div>
 
-<div class="sucAlert" id="successMessage" style="display: none;">
-    <h1>PAYMENT SUCCEED!</h1>
-</div>
+            <div class="sucAlert" id="successMessage" style="display: none;">
+                <h1>PAYMENT SUCCEED!</h1>
+            </div>
 
-<div class="failAlert" id="failMessage" style="display: none;">
-    <h1>PAYMENT FAILED!</h1>
-</div>
+            <div class="failAlert" id="failMessage" style="display: none;">
+                <h1>PAYMENT FAILED!</h1>
+            </div>
+        </div>
+    </div>
+    <script th:inline="javascript">
+        function sendDataToBackend() {
+            var courses = document.querySelectorAll('tr[data-course-id]');
+            var paymentData = [];
 
-<script th:inline="javascript">
-    function sendDataToBackend() {
-        var courses = document.querySelectorAll('tr[data-course-id]');
-        var paymentData = [];
+            courses.forEach(function(course) {
+                var courseId = course.getAttribute('data-course-id');
+                var coursePrice = course.getAttribute('data-course-price');
+                var inputField = course.querySelector('input[data-remarks-for="' + courseId + '"]');
+                var userRemarks = inputField.value;
+                var courseData = {
+                    id: generateOrderId(),
+                    fee: coursePrice,
+                    enterDate:'2023-01-01',
+                    courseId: courseId,
+                    paymentDate:'',
+                    approved:0,
+                    note: userRemarks,
+                    studentId:0
+                };
 
-        courses.forEach(function(course) {
-            var courseId = course.getAttribute('data-course-id');
-            var coursePrice = course.getAttribute('data-course-price');
-            var inputField = course.querySelector('input[data-remarks-for="' + courseId + '"]');
-            var userRemarks = inputField.value;
-            var courseData = {
-                id: generateOrderId(),
-                fee: coursePrice,
-                enterDate:'2023-01-01',
-                courseId: courseId,
-                paymentDate:'',
-                approved:0,
-                note: userRemarks,
-                studentId:0
-            };
+                paymentData.push(courseData);
+            });
 
-            paymentData.push(courseData);
-        });
-
-        fetch('/api/makePayment', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(paymentData)
-        }).then(function(response) {
-            if (response.ok) {
-                var successMessageElement = document.getElementById('successMessage');
-                successMessageElement.style.display = 'block';
-            } else {
-                var failMessageElement = document.getElementById('failMessage');
-                failMessageElement.style.display = 'block';
-            }
-        }).catch(function(error) {
-            console.error('Error occurred while sending payment data:', error);
-        });
-    }
-
-    function generateOrderId() {
-        const characters = '0123456789';
-        const orderIdLength = 6;
-        let orderId = '';
-        function isCharacterPresent(char) {
-            return orderId.indexOf(char) !== -1;
+            fetch('/api/makePayment', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(paymentData)
+            }).then(function(response) {
+                if (response.ok) {
+                    var successMessageElement = document.getElementById('successMessage');
+                    successMessageElement.style.display = 'block';
+                } else {
+                    var failMessageElement = document.getElementById('failMessage');
+                    failMessageElement.style.display = 'block';
+                }
+            }).catch(function(error) {
+                console.error('Error occurred while sending payment data:', error);
+            });
         }
-        while (orderId.length < orderIdLength) {
-            const randomIndex = Math.floor(Math.random() * characters.length);
-            const randomCharacter = characters[randomIndex];
-            if (!isCharacterPresent(randomCharacter)) {
-                orderId += randomCharacter;
+
+        function generateOrderId() {
+            const characters = '0123456789';
+            const orderIdLength = 6;
+            let orderId = '';
+            function isCharacterPresent(char) {
+                return orderId.indexOf(char) !== -1;
             }
+            while (orderId.length < orderIdLength) {
+                const randomIndex = Math.floor(Math.random() * characters.length);
+                const randomCharacter = characters[randomIndex];
+                if (!isCharacterPresent(randomCharacter)) {
+                    orderId += randomCharacter;
+                }
+            }
+            return orderId;
         }
-        return orderId;
-    }
-</script>
-</div>
+    </script>
 </body>
 </html>
 

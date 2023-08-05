@@ -1,10 +1,83 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>New Order Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #007bff;
+        }
+
+        h2 {
+            color: #009688;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background-color: #f2f2f2;
+        }
+
+        .section {
+            margin: 20px 0;
+        }
+
+        .message {
+            color: #f44336;
+        }
+    </style>
 </head>
 <body>
+<div class="section">
+    <h1>Welcome, <span th:text="${user.userName}"></span>!</h1>
+</div>
+<div class="section">
+    <h2>Order Management</h2>
+    <div th:if="${orderInfo == null}" class="message">
+        <p>No orders to deal with.</p>
+    </div>
+    <div th:if="${orderInfo != null}">
+        <table>
+            <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Fee</th>
+                <th>Enter Date</th>
+                <th>Course ID</th>
+                <th>Payment Date</th>
+                <th>Approved</th>
+                <th>Note</th>
+                <th>Student ID</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="order : ${orderInfo}">
+                <td th:text="${order.id}"></td>
+                <td th:text="${order.fee}"></td>
+                <td th:text="${order.enterDate}"></td>
+                <td th:text="${order.courseId}"></td>
+                <td th:text="${order.paymentDate}"></td>
+                <td th:text="${order.approved} ? 'Yes' : 'No'"></td>
+                <td th:text="${order.note}"></td>
+                <td th:text="${order.studentId}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 
 </body>
 </html>

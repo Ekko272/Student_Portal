@@ -12,6 +12,8 @@ public interface StudentService {
     List<Course> findAllCourse();
     List<Integer> checkCoursesStudentHas(int id);
     List<Course> findAllCourseStudentHas(int id);
+    List<Course> findAllNotApprovedCourseStudentHas(int id);
     int saveOrderPayment(int studentId, Order order);
+    int setCourseApprovedOrNot(int studentId, int courseId, int choice);
 
 }

@@ -96,8 +96,10 @@ public class StudentAPI {
         java.sql.Date sqlDate = new java.sql.Date(currentDate.getTime());
         for(int i = 0; i < paymentData.size(); i++){
             paymentData.get(i).setPaymentDate(sqlDate);
+            studentService.setCourseApprovedOrNot(studentId,paymentData.get(i).getCourseId(),1);
             studentService.saveOrderPayment(studentId, paymentData.get(i));
         }
+
         return ResponseEntity.ok("ok");
     }
 

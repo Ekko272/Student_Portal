@@ -21,6 +21,7 @@ public interface BaseRepository {
     void decEnrollment(Integer id);
     List<Course> findAllCourse();
     List<Course> findAllCourseStudentHas(int id);
+    List<Course> findAllNotApprovedCourseStudentHas(int id);
     int saveOrderPayment(int studentId, Order order);
     int approvePayment(Order order);
     List<Order> findAllOrderByStudentId(int studentId);
@@ -28,6 +29,7 @@ public interface BaseRepository {
     List<Order> findAllOrder();
     Order findOrderById(int orderId);
 
+    int setCourseApprovedOrNot(int studentId, int courseId, int choice);
 
 
 

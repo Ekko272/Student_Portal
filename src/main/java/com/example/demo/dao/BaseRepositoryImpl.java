@@ -174,7 +174,19 @@ public class BaseRepositoryImpl implements BaseRepository {
         }
         return courseList;
     }
+    //SELECT * FROM course JOIN student_course ON course.id = student_course.course_id WHERE student_course.student_id=5 AND approved=0;
 
+    @Override
+    public List<Course> findAllNotApprovedCourseStudentHas(int id) {
+        List<Course> courseList = null;
+        try {
+            String sql = "SELECT * FROM course JOIN student_course ON course.id = student_course.course_id WHERE student_course.student_id=? AND approved=0;";
+            courseList = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Course.class), id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return courseList;
+    }
 
     @Override
     public int saveOrderPayment(int studentId, Order order) {
@@ -189,6 +201,8 @@ public class BaseRepositoryImpl implements BaseRepository {
         return 0;
     }
 
+
+
     @Override
     public int approvePayment(Order order) {
         String sql = "update orders set approved=1 where id=?;";
@@ -199,7 +213,6 @@ public class BaseRepositoryImpl implements BaseRepository {
             e.printStackTrace();
             return 0;
         }
-
     }
 
     @Override
@@ -249,6 +262,18 @@ public class BaseRepositoryImpl implements BaseRepository {
         }catch (Exception e){
             e.printStackTrace();
             return null;
+        }
+    }
+
+    @Override
+    public int setCourseApprovedOrNot(int studentId, int courseId, int choice) {
+        String sql = "update student_course set approved=? where student_id=? and course_id=?;";
+        try {
+            int i = jdbcTemplate.update(sql,choice,studentId,courseId);
+            return i;
+        }catch (Exception e){
+            e.printStackTrace();
+            return 0;
         }
     }
 

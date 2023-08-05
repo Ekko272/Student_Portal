@@ -16,4 +16,5 @@ public class Order {
     private boolean approved;
     private String note;
     private int studentId;
+    public Order(){};
 }

@@ -63,7 +63,6 @@ public class AdminMainPageCont {
         else{
             mv.addObject("orderInfo", allOrderNotApproved);
         }
-
         return mv;
     }
 
