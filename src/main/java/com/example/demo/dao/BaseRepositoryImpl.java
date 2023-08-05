@@ -176,7 +176,6 @@ public class BaseRepositoryImpl implements BaseRepository {
     }
 
 
-    //TODO: complete this method, fix error for data type(type date in database for enterDate and paymentDate)
     @Override
     public int saveOrderPayment(int studentId, Order order) {
         String sql = "INSERT INTO orders (id, fee, enterDate, courseId, paymentDate, approved, note, studentId) VALUES (?,?,?,?,?,?,?,?);";
@@ -201,6 +200,56 @@ public class BaseRepositoryImpl implements BaseRepository {
             return 0;
         }
 
+    }
+
+    @Override
+    public List<Order> findAllOrderByStudentId(int studentId) {
+        String sql = "select * from orders where studentId=?;";
+        try {
+            List<Order> orders = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Order.class));
+            return orders;
+        }catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public List<Order> findAllOrderNotApproved() {
+        String sql = "select * from orders where approved=0;";
+        try{
+            List<Order> orders = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Order.class));
+            return orders;
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public List<Order> findAllOrder() {
+        String sql = "select * from orders;";
+        try {
+            List<Order> orders = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Order.class));
+            return orders;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    @Override
+    public Order findOrderById(int orderId) {
+        String sql = "select * from orders where id=?;";
+        try {
+            Order order = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Order.class));
+            return order;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
 

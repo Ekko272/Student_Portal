@@ -120,5 +120,15 @@ class DemoApplicationTests {
         //baseRepository.saveOrderPayment(12,new Order(1,2003.2,"2023-01-01",12,"2023-01-01",false,"213dsqa",32));
     }
 
+    @Test
+    void test1233(){
+        baseRepository.findAllOrder();
+        baseRepository.findAllCourseStudentHas(12);
+        baseRepository.findOrderById(312);
+        baseRepository.findAllOrderNotApproved();
+    }
+
+
+
 
 }

@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Transactional
 @Service
 public class AdminServiceImpl implements AdminService{
@@ -63,6 +65,26 @@ public class AdminServiceImpl implements AdminService{
     @Override
     public int approvePayment(Order order) {
         return baseRepository.approvePayment(order);
+    }
+
+    @Override
+    public List<Order> findAllOrderByStudentId(int studentId) {
+        return baseRepository.findAllOrderByStudentId(studentId);
+    }
+
+    @Override
+    public List<Order> findAllOrderNotApproved() {
+        return baseRepository.findAllOrderNotApproved();
+    }
+
+    @Override
+    public List<Order> findAllOrder() {
+        return baseRepository.findAllOrder();
+    }
+
+    @Override
+    public Order findOrderById(int orderId) {
+        return baseRepository.findOrderById(orderId);
     }
 
 

@@ -23,6 +23,10 @@ public interface BaseRepository {
     List<Course> findAllCourseStudentHas(int id);
     int saveOrderPayment(int studentId, Order order);
     int approvePayment(Order order);
+    List<Order> findAllOrderByStudentId(int studentId);
+    List<Order> findAllOrderNotApproved();
+    List<Order> findAllOrder();
+    Order findOrderById(int orderId);
 
 
 
