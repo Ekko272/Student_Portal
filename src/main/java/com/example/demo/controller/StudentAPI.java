@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/api")
@@ -64,27 +65,12 @@ public class StudentAPI {
         }
     }
 
-//    @PostMapping("/makePayment")
-//    public ResponseEntity<String> makePayment(@RequestBody Order order){
-//
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setContentType(MediaType.TEXT_PLAIN);
-//        return new ResponseEntity<>("Cool", headers, HttpStatus.OK);
-//
-//    }
-
-//    public double getTotalPrice(String tp){
-//        String an = tp.replace("$","");
-//        double result = Double.parseDouble(an);
-//        return result;
-//    }
-
     //TODO:
     // a) complete makePayment.html:
     // 1. User input for enterDate
     // 2. Retrieving data for enterDate and sent to here
     // b) Once successfully save the orders, send to Admin main page
-    // let adimin deal with the orders and make approved to true
+    // let admin deal with the orders and make approved to true
 
     @PostMapping("/makePayment")
     public ResponseEntity<String> makePayment(@RequestBody List<Order> paymentData, HttpSession session) {
@@ -101,6 +87,18 @@ public class StudentAPI {
         }
 
         return ResponseEntity.ok("ok");
+    }
+
+    @PostMapping("/submit-orders")
+    public String submitOrders(@RequestParam Map<String, String> params) {
+        for (Map.Entry<String, String> entry : params.entrySet()) {
+            if (entry.getKey().startsWith("approve_") && entry.getValue().equals("on")) {
+                String orderId = entry.getKey().replace("approve_", "");
+                System.out.println("order ID has been approved: " + orderId);
+            }
+        }
+
+        return "redirect:/orderManagement";
     }
 
 

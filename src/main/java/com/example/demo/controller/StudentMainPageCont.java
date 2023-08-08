@@ -62,9 +62,10 @@ public class StudentMainPageCont {
         User currentUser = (User)session.getAttribute("cruser");
         List<Course> courseList = studentService.findAllCourseStudentHas(currentUser.getId());
 
-        ModelAndView mv = new ModelAndView("");
+        ModelAndView mv = new ModelAndView("myCourseStudent");
         mv.addObject("user",currentUser);
         mv.addObject("courseList",courseList);
+
         return mv;
     }
 

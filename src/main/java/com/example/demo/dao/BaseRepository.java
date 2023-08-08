@@ -28,7 +28,6 @@ public interface BaseRepository {
     List<Order> findAllOrderNotApproved();
     List<Order> findAllOrder();
     Order findOrderById(int orderId);
-
     int setCourseApprovedOrNot(int studentId, int courseId, int choice);
 
 

@@ -38,45 +38,61 @@
         .message {
             color: #f44336;
         }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .checkbox-label {
+            margin-left: 5px;
+        }
     </style>
 </head>
 <body>
 <div class="section">
-    <h1>Welcome, <span th:text="${user.userName}"></span>!</h1>
 </div>
 <div class="section">
     <h2>Order Management</h2>
-    <div th:if="${orderInfo == null}" class="message">
-        <p>No orders to deal with.</p>
-    </div>
-    <div th:if="${orderInfo != null}">
-        <table>
-            <thead>
-            <tr>
-                <th>Order ID</th>
-                <th>Fee</th>
-                <th>Enter Date</th>
-                <th>Course ID</th>
-                <th>Payment Date</th>
-                <th>Approved</th>
-                <th>Note</th>
-                <th>Student ID</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="order : ${orderInfo}">
-                <td th:text="${order.id}"></td>
-                <td th:text="${order.fee}"></td>
-                <td th:text="${order.enterDate}"></td>
-                <td th:text="${order.courseId}"></td>
-                <td th:text="${order.paymentDate}"></td>
-                <td th:text="${order.approved} ? 'Yes' : 'No'"></td>
-                <td th:text="${order.note}"></td>
-                <td th:text="${order.studentId}"></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+    <form id="orderForm" action="/api/submit-orders" method="post">
+        <div th:if="${orderInfo == null}" class="message">
+            <p>No orders to deal with.</p>
+        </div>
+        <div th:if="${orderInfo != null}">
+            <table>
+                <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Fee</th>
+                    <th>Enter Date</th>
+                    <th>Course ID</th>
+                    <th>Payment Date</th>
+                    <th>Approved</th>
+                    <th>Note</th>
+                    <th>Student ID</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="order : ${orderInfo}">
+                    <td th:text="${order.id}"></td>
+                    <td th:text="${order.fee}"></td>
+                    <td th:text="${order.enterDate}"></td>
+                    <td th:text="${order.courseId}"></td>
+                    <td th:text="${order.paymentDate}"></td>
+                    <td>
+                        <div class="checkbox-container">
+                            <input type="checkbox" th:id="'approve_' + ${order.id}" th:name="'approve_' + ${order.id}">
+                            <label class="checkbox-label" th:for="'approve_' + ${order.id}">Approve</label>
+                        </div>
+                    </td>
+                    <td th:text="${order.note}"></td>
+                    <td th:text="${order.studentId}"></td>
+                </tr>
+                </tbody>
+            </table>
+            <button type="submit">Submit</button>
+        </div>
+    </form>
 </div>
 
 </body>
