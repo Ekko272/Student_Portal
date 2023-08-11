@@ -16,8 +16,11 @@ public interface AdminService {
     User searchUserAndReturn(String username);
     int StoreOrderPayment(int studentId, Order order);
     int approvePayment(Order order);
+    int approvePaymentByOrderId(int orderId);
     List<Order> findAllOrderByStudentId(int studentId);
     List<Order> findAllOrderNotApproved();
     List<Order> findAllOrder();
     Order findOrderById(int orderId);
+    int setCourseApprovedOrNot(int studentId, int courseId, int choice);
+
 }

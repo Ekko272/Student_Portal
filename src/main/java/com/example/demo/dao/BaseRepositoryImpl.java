@@ -216,6 +216,18 @@ public class BaseRepositoryImpl implements BaseRepository {
     }
 
     @Override
+    public int approvePaymentByOrderId(int orderId) {
+        String sql = "update orders set approved=1 where id=?;";
+        try {
+            int i = jdbcTemplate.update(sql, orderId);
+            return i;
+        }catch (Exception e){
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    @Override
     public List<Order> findAllOrderByStudentId(int studentId) {
         String sql = "select * from orders where studentId=?;";
         try {

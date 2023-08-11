@@ -57,8 +57,8 @@ public class AdminMainPageCont {
         mv.addObject("user", currentUser);
 
         List<Order> allOrderNotApproved = adminService.findAllOrderNotApproved();
-        if(allOrderNotApproved == null){
-            mv.addObject("orderInfo", new String("No orders to deal with."));
+        if(allOrderNotApproved.size() == 0){
+            mv.addObject("orderInfo", null);
         }
         else{
             mv.addObject("orderInfo", allOrderNotApproved);

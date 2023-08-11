@@ -5,6 +5,7 @@ import com.example.demo.model.Order;
 import com.example.demo.model.User;
 import com.example.demo.service.AdminService;
 import com.example.demo.service.StudentService;
+import jakarta.jws.WebParam;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -13,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Date;
 import java.util.List;
@@ -82,26 +84,12 @@ public class StudentAPI {
         java.sql.Date sqlDate = new java.sql.Date(currentDate.getTime());
         for(int i = 0; i < paymentData.size(); i++){
             paymentData.get(i).setPaymentDate(sqlDate);
-            studentService.setCourseApprovedOrNot(studentId,paymentData.get(i).getCourseId(),1);
+            studentService.setCourseApprovedOrNot(studentId,paymentData.get(i).getCourseId(),0);
             studentService.saveOrderPayment(studentId, paymentData.get(i));
         }
 
         return ResponseEntity.ok("ok");
     }
-
-    @PostMapping("/submit-orders")
-    public String submitOrders(@RequestParam Map<String, String> params) {
-        for (Map.Entry<String, String> entry : params.entrySet()) {
-            if (entry.getKey().startsWith("approve_") && entry.getValue().equals("on")) {
-                String orderId = entry.getKey().replace("approve_", "");
-                System.out.println("order ID has been approved: " + orderId);
-            }
-        }
-
-        return "redirect:/orderManagement";
-    }
-
-
 
 
 

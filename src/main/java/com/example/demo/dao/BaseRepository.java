@@ -24,6 +24,7 @@ public interface BaseRepository {
     List<Course> findAllNotApprovedCourseStudentHas(int id);
     int saveOrderPayment(int studentId, Order order);
     int approvePayment(Order order);
+    int approvePaymentByOrderId(int orderId);
     List<Order> findAllOrderByStudentId(int studentId);
     List<Order> findAllOrderNotApproved();
     List<Order> findAllOrder();

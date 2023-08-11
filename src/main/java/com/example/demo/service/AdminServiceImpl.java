@@ -68,6 +68,11 @@ public class AdminServiceImpl implements AdminService{
     }
 
     @Override
+    public int approvePaymentByOrderId(int orderId) {
+        return baseRepository.approvePaymentByOrderId(orderId);
+    }
+
+    @Override
     public List<Order> findAllOrderByStudentId(int studentId) {
         return baseRepository.findAllOrderByStudentId(studentId);
     }
@@ -85,6 +90,11 @@ public class AdminServiceImpl implements AdminService{
     @Override
     public Order findOrderById(int orderId) {
         return baseRepository.findOrderById(orderId);
+    }
+
+    @Override
+    public int setCourseApprovedOrNot(int studentId, int courseId, int choice) {
+        return baseRepository.setCourseApprovedOrNot(studentId,courseId,choice);
     }
 
 

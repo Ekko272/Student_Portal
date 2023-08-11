@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Course;
+import com.example.demo.model.Order;
+import com.example.demo.model.User;
 import com.example.demo.service.AdminService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.servlet.http.HttpServlet;
@@ -13,6 +15,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
+import java.util.Map;
 
 @Controller
 public class AdminAPI extends HttpServlet {
@@ -48,6 +55,7 @@ public class AdminAPI extends HttpServlet {
             HttpHeaders hearderrs = new HttpHeaders();
             hearderrs.setContentType(MediaType.TEXT_PLAIN);
             return new ResponseEntity<>("fail",hearderrs,HttpStatus.OK);
+
         }
     }
 
@@ -58,6 +66,7 @@ public class AdminAPI extends HttpServlet {
         //Proved ResponseEntity method is able to pass a session
         if(course!=null)
         {
+
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.TEXT_PLAIN);
             return ResponseEntity.ok(course);
@@ -67,6 +76,30 @@ public class AdminAPI extends HttpServlet {
         }
     }
 
+    @PostMapping("/api/submit-orders")
+    public ModelAndView submitOrders(@RequestParam Map<String, String> params, HttpSession session) {
 
+        User currentUser = (User)session.getAttribute("cruser");
+        for (Map.Entry<String, String> entry : params.entrySet()) {
+            if (entry.getKey().startsWith("approve_") && entry.getValue().equals("on")) {
+                String orderId = entry.getKey().replace("approve_", "");
+                int orderIdInt = Integer.parseInt(orderId);
+                System.out.println("order ID has been approved: " + orderId);
+                adminService.approvePaymentByOrderId(orderIdInt);
+            }
+        }
+
+        ModelAndView mv = new ModelAndView("orderManagement");
+        mv.addObject("user", currentUser);
+
+        List<Order> allOrderNotApproved = adminService.findAllOrderNotApproved();
+        if(allOrderNotApproved == null){
+            mv.addObject("orderInfo", new String("No orders to deal with."));
+        }
+        else{
+            mv.addObject("orderInfo", allOrderNotApproved);
+        }
+        return mv;
+    }
 
 }
