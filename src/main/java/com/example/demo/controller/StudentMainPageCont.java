@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.model.Course;
 import com.example.demo.model.User;
+import com.example.demo.service.Algorithms;
 import com.example.demo.service.StudentService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -39,7 +40,7 @@ public class StudentMainPageCont {
     public ModelAndView makePayment(HttpServletRequest request){
         HttpSession session = request.getSession();
         User currentUser = (User)session.getAttribute("cruser");
-        List<Course> courseList = studentService.findAllNotApprovedCourseStudentHas(currentUser.getId());
+        List<Course> courseList = studentService.findAllNotPaidCourseStudentHas(currentUser.getId());
         double total = 0;
         for(int i=0; i<courseList.size();i++){
             total+=courseList.get(i).getPrice();
@@ -61,10 +62,12 @@ public class StudentMainPageCont {
         HttpSession session = request.getSession();
         User currentUser = (User)session.getAttribute("cruser");
         List<Course> courseList = studentService.findAllCourseStudentHas(currentUser.getId());
+        List<String> dateSchedule = Algorithms.generateDateSchedule("08/02/2023", 12, "Monday");
 
         ModelAndView mv = new ModelAndView("myCourseStudent");
         mv.addObject("user",currentUser);
         mv.addObject("courseList",courseList);
+        mv.addObject("dateSchedule",dateSchedule);
 
         return mv;
     }

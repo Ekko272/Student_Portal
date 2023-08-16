@@ -19,6 +19,7 @@ public class StudentServiceImpl implements StudentService{
             baseRepository.studentAddCourse(studentId,course);
             baseRepository.incEnrollment(course.getId());
             baseRepository.setCourseApprovedOrNot(studentId,course.getId(),0);
+            baseRepository.setPaid(0,studentId,course.getId());
             return 1;//adding success
         }
         else {
@@ -71,7 +72,14 @@ public class StudentServiceImpl implements StudentService{
         return baseRepository.findAllNotApprovedCourseStudentHas(id);
     }
 
+    @Override
+    public List<Course> findAllNotPaidCourseStudentHas(int studentId) {
+        return baseRepository.findAllNotPaidCourseStudentHas(studentId);
+    }
+
     public int saveOrderPayment(int studentId, Order order){
+
+        baseRepository.setPaid(1,studentId,order.getCourseId());
         return baseRepository.saveOrderPayment(studentId,order);
     }
 

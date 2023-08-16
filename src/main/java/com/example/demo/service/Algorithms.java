@@ -1,10 +1,7 @@
 package com.example.demo.service;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class Algorithms {
     public static void main(String[] args) {
@@ -21,6 +18,8 @@ public class Algorithms {
     public static List<String> generateDateSchedule(String startDateString, int courseLengthInWeeks, String dayOfWeek) {
         List<String> schedule = new ArrayList<>();
 
+        Map weekDayMap= new HashMap<>();
+        weekDayMap.put("M","Monday");
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
         Calendar calendar = Calendar.getInstance();
 

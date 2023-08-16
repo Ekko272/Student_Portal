@@ -128,6 +128,13 @@ class DemoApplicationTests {
         baseRepository.findAllOrderNotApproved();
     }
 
+    @Test
+    void dayTest(){
+        Course course = baseRepository.serachCourse(10);
+
+        System.out.println(course.getStartDate());
+    }
+
 
 
 

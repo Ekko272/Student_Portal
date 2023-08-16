@@ -157,6 +157,16 @@ public class BaseRepositoryImpl implements BaseRepository {
     }
 
     @Override
+    public void setPaid(int choice, int studentId, int courseId) {
+        String sql="UPDATE student_course SET paid=? WHERE student_id=? AND course_id=?;";
+        try {
+            jdbcTemplate.update(sql, choice,studentId,courseId);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public List<Course> findAllCourse() {
         String sql="select * from course;";
         List<Course> courseList = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Course.class));
@@ -182,6 +192,18 @@ public class BaseRepositoryImpl implements BaseRepository {
         try {
             String sql = "SELECT * FROM course JOIN student_course ON course.id = student_course.course_id WHERE student_course.student_id=? AND approved=0;";
             courseList = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Course.class), id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return courseList;
+    }
+
+    @Override
+    public List<Course> findAllNotPaidCourseStudentHas(int studentId) {
+        List<Course> courseList = null;
+        try {
+            String sql = "SELECT * FROM course JOIN student_course ON course.id = student_course.course_id WHERE student_course.student_id=? AND paid=0;";
+            courseList = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Course.class), studentId);
         } catch (Exception e) {
             e.printStackTrace();
         }

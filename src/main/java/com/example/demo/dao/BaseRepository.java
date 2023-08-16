@@ -19,9 +19,11 @@ public interface BaseRepository {
     List<Integer> checkCoursesStudentHas(int id);
     void incEnrollment(Integer id);
     void decEnrollment(Integer id);
+    void setPaid(int choice, int studentId, int courseId);
     List<Course> findAllCourse();
     List<Course> findAllCourseStudentHas(int id);
     List<Course> findAllNotApprovedCourseStudentHas(int id);
+    List<Course> findAllNotPaidCourseStudentHas(int studentId);
     int saveOrderPayment(int studentId, Order order);
     int approvePayment(Order order);
     int approvePaymentByOrderId(int orderId);

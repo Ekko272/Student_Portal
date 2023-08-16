@@ -72,11 +72,11 @@
     <h1>Student Portal System</h1>
     <form th:action="signIn">
         <label>Username
-            <input name="username">
+            <input name="username" required>
         </label>
         <br>
         <label>Password
-            <input name="password">
+            <input name="password" type="password" required>
         </label>
         <br>
         <input type="submit" value="Login">
